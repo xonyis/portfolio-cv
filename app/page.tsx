@@ -1,0 +1,636 @@
+"use client"
+
+import type React from "react"
+
+import { useEffect, useRef, useState } from "react"
+import Image from "next/image"
+import Link from "next/link"
+import { motion, useScroll, useTransform } from "framer-motion"
+import { ChevronDown, Mail, Github, Linkedin, ExternalLink, Code, Database, Globe } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { Card } from "@/components/ui/card"
+import { cn } from "@/lib/utils"
+import { SkillBar } from "@/components/skill-bar"
+import { ProjectCard } from "@/components/project-card"
+import { FloatingNav } from "@/components/floating-nav"
+import { GlowingBlob } from "@/components/glowing-blob"
+
+export default function Portfolio() {
+  const [activeSection, setActiveSection] = useState("home")
+  const { scrollYProgress } = useScroll()
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0.95])
+  const y = useTransform(scrollYProgress, [0, 0.2], [0, -10])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = document.querySelectorAll("section[id]")
+
+      sections.forEach((section) => {
+        const sectionTop = (section as HTMLElement).offsetTop - 100
+        const sectionHeight = (section as HTMLElement).offsetHeight
+        const scrollY = window.scrollY
+
+        const sectionId = section.getAttribute("id") || ""
+
+        if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+          setActiveSection(sectionId)
+        }
+      })
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  const navItems = [
+    { name: "Accueil", href: "#home" },
+    { name: "À propos", href: "#about" },
+    { name: "Expérience", href: "#experience" },
+    { name: "Compétences", href: "#skills" },
+    { name: "Projets", href: "#projects" },
+    { name: "Contact", href: "#contact" },
+  ]
+
+  return (
+      <div ref={containerRef} className="min-h-screen bg-zinc-900 text-white overflow-hidden">
+        {/* Floating Navigation */}
+        <FloatingNav navItems={navItems} activeSection={activeSection} />
+
+        {/* Decorative Elements */}
+        <GlowingBlob className="fixed top-[20%] left-[10%] opacity-20 blur-3xl" color="purple" size="lg" />
+        <GlowingBlob className="fixed top-[60%] right-[15%] opacity-20 blur-3xl" color="blue" size="xl" />
+
+        {/* Hero Section */}
+        <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
+          <motion.div style={{ opacity, y }} className="absolute inset-0 z-0">
+
+            <GlowingBlob className="fixed top-[-45%] right-[-5%] opacity-40 blur-3xl" color="darkPurple" size="xxl" />
+
+          </motion.div>
+
+          <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="container relative z-10 text-center px-4"
+          >
+            <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                className="relative mx-auto mb-8 w-48 h-48 rounded-full overflow-hidden border-4 border-white/10 shadow-2xl"
+            >
+              <Image src="/profile-photo-1.png" alt="Photo de profil" fill className="object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/30 to-blue-500/30 mix-blend-overlay" />
+            </motion.div>
+
+            <motion.h1
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="text-5xl md:text-7xl font-bold mb-4 relative"
+            >
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-fuchsia-300 to-blue-500">
+              Julian Mayer
+            </span>
+            </motion.h1>
+
+            <motion.div
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+            >
+              <p className="text-xl md:text-2xl text-gray-300 mb-8">
+                <span className="font-mono">Développeur Web Full Stack</span>
+              </p>
+
+              <div className="flex gap-4 justify-center">
+                <Button
+                    variant="outline"
+                    size="lg"
+                    className="rounded-full border-purple-500/50 bg-black/50 backdrop-blur-sm hover:bg-purple-950/30 transition-all duration-300"
+                    asChild
+                >
+                  <Link href="#contact">
+                    <Mail className="mr-2 h-4 w-4" />
+                    Contact
+                  </Link>
+                </Button>
+                <Button
+                    size="lg"
+                    className="rounded-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all duration-300"
+                    asChild
+                >
+                  <Link href="#projects">Voir mes projets</Link>
+                </Button>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.7 }}
+              transition={{ delay: 1.5, duration: 1.5, repeat: Number.POSITIVE_INFINITY, repeatType: "reverse" }}
+              className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
+          >
+            <ChevronDown className="h-8 w-8 text-white/70" />
+          </motion.div>
+        </section>
+
+        {/* About Section */}
+        <section id="about" className="py-20 relative">
+          <div className="container mx-auto px-4">
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6 }}
+                className="max-w-3xl mx-auto"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500">
+                À propos de moi
+              </h2>
+
+              <Card className="p-6 md:p-8 bg-gray-900/50 border-gray-800 backdrop-blur-sm relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-tr from-purple-900/10 to-blue-900/10" />
+                <div className="relative z-10">
+                  <p className="text-gray-300 leading-relaxed mb-6">
+                    Développeur web passionné avec depuis plus de 7 ans dans le développent d'applications web. Spécialisé en Vue.Js, Next.js et Node.js, je m'efforce de créer des expériences utilisateur exceptionnelles et les plus interactives que possibles.
+                  </p>
+                  <p className="text-gray-300 leading-relaxed">
+                    Toujours à l'affût des nouvelles technologies et méthodologies pour améliorer mes compétences et la
+                    qualité de mon travail. Je suis particulièrement intéressé par les interfaces innovantes,
+                    l'accessibilité et les performances web.
+                  </p>
+
+                  <div className="mt-8 flex flex-wrap gap-2">
+                    <Badge variant="outline" className="bg-green-950/30 text-green-300 border-green-800/50">
+                      Vue.js
+                    </Badge>
+                    <Badge variant="outline" className="bg-blue-950/30 text-blue-300 border-blue-800/50">
+                      Next.js
+                    </Badge>
+                    <Badge variant="outline" className="bg-emerald-950/30 text-emerald-300 border-emerald-800/50">
+                      SpringBoot
+                    </Badge>
+                    <Badge variant="outline" className="bg-purple-950/30 text-purple-300 border-purple-800/50">
+                      React
+                    </Badge>
+                    <Badge variant="outline" className="bg-indigo-950/30 text-indigo-300 border-indigo-800/50">
+                      TypeScript
+                    </Badge>
+                    <Badge variant="outline" className="bg-yellow-950/30 text-yellow-300 border-yellow-500/50">
+                      JavaScript
+                    </Badge>
+                    <Badge variant="outline" className="bg-violet-950/30 text-violet-300 border-violet-800/50">
+                      Node.js
+                    </Badge>
+                    <Badge variant="outline" className="bg-blue-950/30 text-blue-300 border-blue-800/50">
+                      PHP
+                    </Badge>
+                    <Badge variant="outline" className="bg-purple-950/30 text-purple-300 border-purple-800/50">
+                      Symfony
+                    </Badge>
+                    <Badge variant="outline" className="bg-orange-950/30 text-orange-300 border-orange-800/50">
+                      Java
+                    </Badge>
+                    <Badge variant="outline" className="bg-fuchsia-950/30 text-fuchsia-300 border-fuchsia-800/50">
+                      UI/UX
+                    </Badge>
+                  </div>
+                </div>
+              </Card>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* School Section */}
+        <section id="School" className="py-20 relative">
+          <div className="container mx-auto px-4">
+            <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6 }}
+                className="text-3xl md:text-4xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500"
+            >
+              Études
+            </motion.h2>
+
+            <div className="max-w-6xl mx-auto relative">
+              {/* Timeline line */}
+              <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-purple-500 to-blue-500 transform md:translate-x-[-0.5px]" />
+
+              {/* Experience Items */}
+              <div className="space-y-12 ">
+                <TimelineItem
+                    title="Expert en Développement Informatique"
+                    company="MEWO"
+                    period="Septembre 2024 - Présent"
+                    description="Deux années pour acquérir une vision technique et projet à 360° en explorant tous les aspects du développement, de ses performances techniques et du management de la fonction : langages web, développement mobile, programmation orientée objet, webdesign, UX / UI, sémantique…"
+                    align="right"
+                    delay={0.1}
+                />
+
+                <TimelineItem
+                    title="Développeur Full stack"
+                    company="Metz Numeric School"
+                    period="Septembre 2021 - Juin 2024
+"
+                    description="Ce parcours en trois ans, offre une immersion progressive dans l’univers numérique, avec une première année axée sur les fondamentaux de la programmation et de la culture informatique, une deuxième année dédiée aux technologies avancées et aux méthodes de développement, et une troisième année en alternance (ou stage alterné) pour renforcer l’expérience professionnelle."
+                    align="left"
+                    delay={0.2}
+                />
+
+                <TimelineItem
+                    title="Baccalauréat Technologique STI2D"
+                    company="Lycée de la Communication"
+                    period="2016 - 2018"
+                    description="Diplôme obtenu Mention Assez Bien - Option SIN"
+                    align="right"
+                    delay={0.3}
+                />
+
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Experience Section */}
+        <section id="experience" className="py-20 relative">
+          <div className="container mx-auto px-4">
+            <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6 }}
+                className="text-3xl md:text-4xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500"
+            >
+              Parcours professionnel
+            </motion.h2>
+
+            <div className="max-w-3xl mx-auto relative">
+              {/* Timeline line */}
+              <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-purple-500 to-blue-500 transform md:translate-x-[-0.5px]" />
+
+              {/* Experience Items */}
+              <div className="space-y-12">
+                <TimelineItem
+                    title="Développeur Full Stack Senior"
+                    company="Entreprise XYZ"
+                    period="2020 - Présent"
+                    description="Développement d'applications web avec React et Next.js. Mise en place d'API RESTful avec Node.js et Express. Optimisation des performances et de l'expérience utilisateur."
+                    align="right"
+                    delay={0.1}
+                />
+
+                <TimelineItem
+                    title="Développeur Front-end"
+                    company="Agence Web ABC"
+                    period="2018 - 2020"
+                    description="Création d'interfaces utilisateur réactives avec React. Intégration de maquettes Figma en HTML/CSS. Optimisation du référencement (SEO)."
+                    align="left"
+                    delay={0.2}
+                />
+
+                <TimelineItem
+                    title="Développeur Web Junior"
+                    company="Startup Tech"
+                    period="2016 - 2018"
+                    description="Développement de fonctionnalités front-end avec JavaScript. Intégration de designs responsive. Correction de bugs et amélioration de l'interface utilisateur."
+                    align="right"
+                    delay={0.3}
+                />
+
+                <TimelineItem
+                    title="Master en Développement Web"
+                    company="Université de Technologie"
+                    period="2014 - 2016"
+                    description="Spécialisation en développement d'applications web modernes et architectures logicielles."
+                    align="left"
+                    delay={0.4}
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Skills Section */}
+        <section id="skills" className="py-20 relative">
+          <div className="container mx-auto px-4">
+            <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6 }}
+                className="text-3xl md:text-4xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500"
+            >
+              Compétences
+            </motion.h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.6 }}
+              >
+                <Card className="p-6 bg-gray-900/50 border-gray-800 backdrop-blur-sm h-full">
+                  <h3 className="text-xl font-bold mb-6 flex items-center">
+                    <Code className="mr-2 h-5 w-5 text-purple-400" />
+                    Développement Front-end
+                  </h3>
+                  <div className="space-y-6">
+                    <SkillBar name="React / Next.js" value={95} color="purple" />
+                    <SkillBar name="JavaScript / TypeScript" value={90} color="indigo" />
+                    <SkillBar name="HTML / CSS / Tailwind" value={85} color="blue" />
+                    <SkillBar name="UI/UX Design" value={80} color="violet" />
+                  </div>
+                </Card>
+              </motion.div>
+
+              <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                <Card className="p-6 bg-gray-900/50 border-gray-800 backdrop-blur-sm h-full">
+                  <h3 className="text-xl font-bold mb-6 flex items-center">
+                    <Database className="mr-2 h-5 w-5 text-blue-400" />
+                    Développement Back-end
+                  </h3>
+                  <div className="space-y-6">
+                    <SkillBar name="Node.js / Express" value={85} color="blue" />
+                    <SkillBar name="SQL / NoSQL" value={80} color="cyan" />
+                    <SkillBar name="API RESTful / GraphQL" value={75} color="teal" />
+                    <SkillBar name="DevOps / CI/CD" value={70} color="green" />
+                  </div>
+                </Card>
+              </motion.div>
+
+              <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  className="md:col-span-2"
+              >
+                <Card className="p-6 bg-gray-900/50 border-gray-800 backdrop-blur-sm">
+                  <h3 className="text-xl font-bold mb-6 flex items-center">
+                    <Globe className="mr-2 h-5 w-5 text-violet-400" />
+                    Autres compétences
+                  </h3>
+                  <div className="flex flex-wrap gap-3">
+                    <SkillBadge name="Git" icon="🔄" />
+                    <SkillBadge name="Docker" icon="🐳" />
+                    <SkillBadge name="CI/CD" icon="⚙️" />
+                    <SkillBadge name="AWS" icon="☁️" />
+                    <SkillBadge name="Agile/Scrum" icon="📊" />
+                    <SkillBadge name="UI/UX" icon="🎨" />
+                    <SkillBadge name="SEO" icon="🔍" />
+                    <SkillBadge name="Testing" icon="🧪" />
+                    <SkillBadge name="Performance" icon="⚡" />
+                    <SkillBadge name="Responsive Design" icon="📱" />
+                    <SkillBadge name="Figma" icon="🖌️" />
+                    <SkillBadge name="Photoshop" icon="🖼️" />
+                  </div>
+                </Card>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* Projects Section */}
+        <section id="projects" className="py-20 relative">
+          <div className="container mx-auto px-4">
+            <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6 }}
+                className="text-3xl md:text-4xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500"
+            >
+              Projets récents
+            </motion.h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <ProjectCard
+                  title="Application E-commerce"
+                  description="Plateforme de vente en ligne avec panier d'achat, paiement sécurisé et gestion des commandes."
+                  tags={["React", "Node.js", "MongoDB", "Stripe"]}
+                  image="/project1.png"
+                  delay={0.1}
+              />
+
+              <ProjectCard
+                  title="Dashboard Analytics"
+                  description="Interface d'administration avec visualisation de données et rapports en temps réel."
+                  tags={["Next.js", "TypeScript", "Chart.js", "Tailwind"]}
+                  image="/project2.png"
+                  delay={0.2}
+              />
+
+              <ProjectCard
+                  title="Application Mobile"
+                  description="Application mobile cross-platform pour la gestion de tâches et la productivité."
+                  tags={["React Native", "Firebase", "Redux", "Expo"]}
+                  image="/project3.png"
+                  delay={0.3}
+              />
+
+              <ProjectCard
+                  title="Plateforme Éducative"
+                  description="Site web pour l'apprentissage en ligne avec cours, quiz et suivi de progression."
+                  tags={["Vue.js", "Express", "PostgreSQL", "WebSockets"]}
+                  image="/project4.png"
+                  delay={0.4}
+              />
+
+              <ProjectCard
+                  title="Portfolio Créatif"
+                  description="Site vitrine pour un photographe avec galerie d'images et animations."
+                  tags={["React", "Framer Motion", "GSAP", "Styled Components"]}
+                  image="/project5.png"
+                  delay={0.5}
+              />
+
+              <ProjectCard
+                  title="API RESTful"
+                  description="Backend robuste pour une application de réservation avec authentification JWT."
+                  tags={["Node.js", "Express", "MongoDB", "JWT"]}
+                  image="/project6.png"
+                  delay={0.6}
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Contact Section */}
+        <section id="contact" className="py-20 relative">
+          <div className="container mx-auto px-4">
+            <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6 }}
+                className="text-3xl md:text-4xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500"
+            >
+              Contact
+            </motion.h2>
+
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="max-w-lg mx-auto"
+            >
+              <Card className="p-8 bg-gray-900/50 border-gray-800 backdrop-blur-sm relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-tr from-purple-900/10 to-blue-900/10" />
+
+                <div className="relative z-10 space-y-6">
+                  <ContactItem
+                      icon={<Mail className="h-5 w-5 text-purple-400" />}
+                      label="Email"
+                      value="votre.email@exemple.com"
+                  />
+
+                  <ContactItem
+                      icon={<Github className="h-5 w-5 text-purple-400" />}
+                      label="GitHub"
+                      value="github.com/votre-nom"
+                      link="https://github.com/votre-nom"
+                  />
+
+                  <ContactItem
+                      icon={<Linkedin className="h-5 w-5 text-purple-400" />}
+                      label="LinkedIn"
+                      value="linkedin.com/in/votre-nom"
+                      link="https://linkedin.com/in/votre-nom"
+                  />
+
+                  <div className="pt-6">
+                    <Button
+                        className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all duration-300"
+                        size="lg"
+                    >
+                      Télécharger mon CV
+                    </Button>
+                  </div>
+                </div>
+              </Card>
+            </motion.div>
+          </div>
+        </section>
+
+        <footer className="py-8 border-t border-gray-800">
+          <div className="container mx-auto px-4 text-center text-gray-400">
+            <p>© {new Date().getFullYear()} Votre Nom - Tous droits réservés</p>
+          </div>
+        </footer>
+      </div>
+  )
+}
+
+// Timeline Item Component
+function TimelineItem({
+                        title,
+                        company,
+                        period,
+                        description,
+                        align = "left",
+                        delay = 0,
+                      }: {
+  title: string
+  company: string
+  period: string
+  description: string
+  align?: "left" | "right"
+  delay?: number
+}) {
+  return (
+      <motion.div
+          initial={{ opacity: 0, x: align === "left" ? -20 : 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, delay }}
+          className={cn("relative flex flex-col md:flex-row items-center", align === "right" ? "md:flex-row-reverse" : "")}
+      >
+        {/* Timeline dot */}
+        <div className="absolute left-0 md:left-1/2 w-5 h-5 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 transform md:translate-x-[-50%] z-10" />
+
+        {/* Content */}
+        <div className={cn("w-full md:w-[calc(40%-20px)]", align === "left" ? "md:pr-2" : "md:pl-2")}>
+          <Card className="p-6 bg-gray-900/50 border-gray-800 backdrop-blur-sm relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-tr from-purple-900/10 to-blue-900/10" />
+            <div className="relative z-10">
+              <div className="flex justify-between items-start mb-2">
+                <div>
+                  <h3 className="font-bold text-lg text-white">{title}</h3>
+                  <p className="text-purple-300">{company}</p>
+                </div>
+                <span className="text-sm text-gray-400 bg-gray-800/70 px-2 py-1 rounded">{period}</span>
+              </div>
+              <p className="text-gray-300">{description}</p>
+            </div>
+          </Card>
+        </div>
+      </motion.div>
+  )
+}
+
+// Skill Badge Component
+function SkillBadge({ name, icon }: { name: string; icon: string }) {
+  return (
+      <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          whileHover={{ scale: 1.05, y: -2 }}
+          className="bg-gradient-to-r from-purple-900/40 to-blue-900/40 backdrop-blur-sm border border-gray-700 rounded-full px-4 py-2 text-sm flex items-center gap-2"
+      >
+        <span>{icon}</span>
+        <span>{name}</span>
+      </motion.div>
+  )
+}
+
+// Contact Item Component
+function ContactItem({
+                       icon,
+                       label,
+                       value,
+                       link,
+                     }: {
+  icon: React.ReactNode
+  label: string
+  value: string
+  link?: string
+}) {
+  return (
+      <div className="flex items-start gap-4">
+        <div className="bg-gray-800/70 p-3 rounded-full">{icon}</div>
+        <div>
+          <p className="text-sm text-gray-400">{label}</p>
+          {link ? (
+              <Link
+                  href={link}
+                  target="_blank"
+                  className="text-white hover:text-purple-300 transition-colors flex items-center gap-1 group"
+              >
+                {value}
+                <ExternalLink className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+              </Link>
+          ) : (
+              <p className="text-white">{value}</p>
+          )}
+        </div>
+      </div>
+  )
+}
