@@ -49,6 +49,7 @@ export default function Portfolio() {
   const navItems = [
     { name: "Accueil", href: "#home" },
     { name: "À propos", href: "#about" },
+    { name: "Études", href: "#School" },
     { name: "Expérience", href: "#experience" },
     { name: "Compétences", href: "#skills" },
     { name: "Projets", href: "#projects" },
@@ -262,6 +263,7 @@ export default function Portfolio() {
         </section>
 
         {/* Experience Section */}
+
         <section id="experience" className="py-20 relative">
           <div className="container mx-auto px-4">
             <motion.h2
@@ -274,44 +276,45 @@ export default function Portfolio() {
               Parcours professionnel
             </motion.h2>
 
-            <div className="max-w-3xl mx-auto relative">
+            <div className="max-w-6xl mx-auto relative">
               {/* Timeline line */}
               <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-purple-500 to-blue-500 transform md:translate-x-[-0.5px]" />
 
               {/* Experience Items */}
-              <div className="space-y-12">
+              <div className="space-y-12 ">
                 <TimelineItem
-                    title="Développeur Full Stack Senior"
-                    company="Entreprise XYZ"
-                    period="2020 - Présent"
-                    description="Développement d'applications web avec React et Next.js. Mise en place d'API RESTful avec Node.js et Express. Optimisation des performances et de l'expérience utilisateur."
+                    title="Expert en Développement Informatique"
+                    company="MEWO"
+                    period="Septembre 2024 - Présent"
+                    description="Deux années pour acquérir une vision technique et projet à 360° en explorant tous les aspects du développement, de ses performances techniques et du management de la fonction : langages web, développement mobile, programmation orientée objet, webdesign, UX / UI, sémantique…"
                     align="right"
                     delay={0.1}
                 />
 
                 <TimelineItem
-                    title="Développeur Front-end"
-                    company="Agence Web ABC"
-                    period="2018 - 2020"
-                    description="Création d'interfaces utilisateur réactives avec React. Intégration de maquettes Figma en HTML/CSS. Optimisation du référencement (SEO)."
+                    title="Développeur Full stack"
+                    company="Metz Numeric School"
+                    period="Septembre 2021 - Juin 2024
+"
+                    description="Ce parcours en trois ans, offre une immersion progressive dans l’univers numérique, avec une première année axée sur les fondamentaux de la programmation et de la culture informatique, une deuxième année dédiée aux technologies avancées et aux méthodes de développement, et une troisième année en alternance (ou stage alterné) pour renforcer l’expérience professionnelle."
                     align="left"
                     delay={0.2}
                 />
 
                 <TimelineItem
-                    title="Développeur Web Junior"
-                    company="Startup Tech"
+                    title="Baccalauréat Technologique STI2D"
+                    company="Lycée de la Communication"
                     period="2016 - 2018"
-                    description="Développement de fonctionnalités front-end avec JavaScript. Intégration de designs responsive. Correction de bugs et amélioration de l'interface utilisateur."
+                    description="Diplôme obtenu Mention Assez Bien - Option SIN"
                     align="right"
                     delay={0.3}
                 />
 
                 <TimelineItem
-                    title="Master en Développement Web"
-                    company="Université de Technologie"
-                    period="2014 - 2016"
-                    description="Spécialisation en développement d'applications web modernes et architectures logicielles."
+                    title="Baccalauréat Technologique STI2D"
+                    company="Lycée de la Communication"
+                    period="2016 - 2018"
+                    description="Diplôme obtenu Mention Assez Bien - Option SIN"
                     align="left"
                     delay={0.4}
                 />
