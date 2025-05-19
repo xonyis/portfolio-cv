@@ -11,6 +11,8 @@ type SkillBarProps = {
 }
 
 const colorMap = {
+  darkPurple: "from-purple-500 to-purple-900",
+  darkGreen: "from-emerald-500 to-emerald-900",
   purple: "from-purple-600 to-purple-400",
   blue: "from-blue-600 to-blue-400",
   indigo: "from-indigo-600 to-indigo-400",
@@ -18,6 +20,9 @@ const colorMap = {
   cyan: "from-cyan-600 to-cyan-400",
   teal: "from-teal-600 to-teal-400",
   green: "from-green-600 to-green-400",
+  red: "from-red-400 to-red-800",
+  yellow: "from-yellow-500 to-amber-200",
+  orange: "from-red-500 to-orange-500"
 }
 
 export function SkillBar({ name, value, color }: SkillBarProps) {

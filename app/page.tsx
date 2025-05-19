@@ -250,7 +250,7 @@ export default function Portfolio() {
                 <TimelineItem
                     title="Baccalauréat Technologique STI2D"
                     company="Lycée de la Communication"
-                    period="2016 - 2018"
+                    period="Septembre 2020 - Juin 2021"
                     description="Diplôme obtenu Mention Assez Bien - Option SIN"
                     align="right"
                     delay={0.3}
@@ -313,7 +313,7 @@ export default function Portfolio() {
                 <TimelineItem
                     title="Baccalauréat Technologique STI2D"
                     company="Lycée de la Communication"
-                    period="2016 - 2018"
+                    period="Septembre 2020 - Juin 2021"
                     description="Diplôme obtenu Mention Assez Bien - Option SIN"
                     align="left"
                     delay={0.4}
@@ -349,9 +349,10 @@ export default function Portfolio() {
                     Développement Front-end
                   </h3>
                   <div className="space-y-6">
-                    <SkillBar name="React / Next.js" value={95} color="purple" />
-                    <SkillBar name="JavaScript / TypeScript" value={90} color="indigo" />
-                    <SkillBar name="HTML / CSS / Tailwind" value={85} color="blue" />
+                    <SkillBar name="Vue.js" value={90} color="green" />
+                    <SkillBar name="React / Next.js" value={75} color="purple" />
+                    <SkillBar name="JavaScript / TypeScript" value={95} color="yellow" />
+                    <SkillBar name="HTML / CSS / Tailwind" value={85} color="orange" />
                     <SkillBar name="UI/UX Design" value={80} color="violet" />
                   </div>
                 </Card>
@@ -369,10 +370,12 @@ export default function Portfolio() {
                     Développement Back-end
                   </h3>
                   <div className="space-y-6">
+                    <SkillBar name="SpringBoot" value={85} color="darkGreen" />
                     <SkillBar name="Node.js / Express" value={85} color="blue" />
-                    <SkillBar name="SQL / NoSQL" value={80} color="cyan" />
-                    <SkillBar name="API RESTful / GraphQL" value={75} color="teal" />
-                    <SkillBar name="DevOps / CI/CD" value={70} color="green" />
+                    <SkillBar name="PHP / Symphony" value={75} color="darkPurple" />
+                    <SkillBar name="SQL / NoSQL" value={65} color="cyan" />
+                    <SkillBar name="API RESTful" value={95} color="teal" />
+                    <SkillBar name="DevOps / CI/CD" value={50} color="red" />
                   </div>
                 </Card>
               </motion.div>

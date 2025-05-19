@@ -17,7 +17,7 @@ export function FloatingNav({ navItems, activeSection }: FloatingNavProps) {
           transition={{ duration: 0.5 }}
           className="fixed top-6 left-1/3 transform -translate-x-1/2 z-50"
       >
-        <nav className="bg-gray-900/30 backdrop-blur-lg border border-gray-800/50 rounded-full px-4 py-2 shadow-lg">
+        <nav className="bg-gray-800/30 backdrop-blur-lg border border-gray-800/50 rounded-full px-4 py-2 shadow-lg">
           <ul className="flex space-x-1">
             {navItems.map((item) => {
               const isActive = activeSection === item.href.substring(1)
