@@ -187,7 +187,7 @@ export default function Portfolio() {
                     <Badge variant="outline" className="bg-yellow-950/30 text-yellow-300 border-yellow-500/50">
                       JavaScript
                     </Badge>
-                    <Badge variant="outline" className="bg-violet-950/30 text-violet-300 border-violet-800/50">
+                    <Badge variant="outline" className="bg-teal-950/30 text-teal-300 border-teal-800/50">
                       Node.js
                     </Badge>
                     <Badge variant="outline" className="bg-blue-950/30 text-blue-300 border-blue-800/50">
@@ -201,6 +201,12 @@ export default function Portfolio() {
                     </Badge>
                     <Badge variant="outline" className="bg-fuchsia-950/30 text-fuchsia-300 border-fuchsia-800/50">
                       UI/UX
+                    </Badge>
+                    <Badge variant="outline" className="bg-violet-950/30 text-violet-300 border-violet-800/50">
+                      BootStrap
+                    </Badge>
+                    <Badge variant="outline" className="bg-cyan-950/30 text-cyan-300 border-cyan-800/50">
+                      Tailwind
                     </Badge>
                   </div>
                 </div>
@@ -283,40 +289,54 @@ export default function Portfolio() {
               {/* Experience Items */}
               <div className="space-y-12 ">
                 <TimelineItem
-                    title="Expert en Développement Informatique"
-                    company="MEWO"
-                    period="Septembre 2024 - Présent"
-                    description="Deux années pour acquérir une vision technique et projet à 360° en explorant tous les aspects du développement, de ses performances techniques et du management de la fonction : langages web, développement mobile, programmation orientée objet, webdesign, UX / UI, sémantique…"
+                    title="Alternant Développeur Analyste"
+                    company="Cora Informatique"
+                    period="Novembre 2023 - Novembre 2024"
+                    description="J’ai participé à la refonte complète d’une application interne destinée au suivi des performances des fournisseurs. Ce projet avait pour objectif de moderniser l’interface et d’optimiser le traitement des flux de données. L’application permettait de récupérer et analyser des flux fournisseurs, puis de générer automatiquement des KPI (indicateurs de performance) sous format texte et Excel, avant de les transmettre via la plateforme Odrive."
                     align="right"
                     delay={0.1}
+                    badges={["SpringBoot","Java", "Vue.js", "JavaScript", "BootStrap"]}
+                    badgeColors={[
+                      "bg-emerald-950/30 text-emerald-300 border-emerald-800/50",
+                      "bg-orange-950/30 text-orange-300 border-orange-800/50",
+                      "bg-green-950/30 text-green-300 border-green-800/50",
+                      "bg-yellow-950/30 text-yellow-300 border-yellow-500/50",
+                      "bg-violet-950/30 text-violet-300 border-violet-800/50"
+                    ]}
                 />
 
                 <TimelineItem
-                    title="Développeur Full stack"
-                    company="Metz Numeric School"
-                    period="Septembre 2021 - Juin 2024
-"
-                    description="Ce parcours en trois ans, offre une immersion progressive dans l’univers numérique, avec une première année axée sur les fondamentaux de la programmation et de la culture informatique, une deuxième année dédiée aux technologies avancées et aux méthodes de développement, et une troisième année en alternance (ou stage alterné) pour renforcer l’expérience professionnelle."
+                    title="Developpeur Web"
+                    company="Witch Ink Tattoo"
+                    period="Mai 2023 - Juillet 2023"
+                    description="J’ai développé le site web de Witch Ink Tattoo, un salon de tatouage souhaitant valoriser son activité et ses artistes grâce à une présence en ligne soignée et moderne. Une fonctionnalité clé du projet est l’intégration de l’API Instagram, permettant de récupérer automatiquement les dernières photos publiées sur le compte du salon afin de maintenir le site à jour sans effort."
                     align="left"
                     delay={0.2}
+                    badges={["Vue.js", "JavaScript", "Node.js", "UI/UX", "Tailwind"]}
+                    badgeColors={[
+                      "bg-green-950/30 text-green-300 border-green-800/50",
+                      "bg-yellow-950/30 text-yellow-300 border-yellow-500/50",
+                      "bg-teal-950/30 text-teal-300 border-teal-800/50",
+                      "bg-fuchsia-950/30 text-fuchsia-300 border-fuchsia-800/50",
+                      "bg-cyan-950/30 text-cyan-300 border-cyan-800/50"
+                    ]}
                 />
 
                 <TimelineItem
-                    title="Baccalauréat Technologique STI2D"
-                    company="Lycée de la Communication"
-                    period="2016 - 2018"
-                    description="Diplôme obtenu Mention Assez Bien - Option SIN"
+                    title="Developpeur Web"
+                    company="Ceguipro"
+                    period="Mai 2022 - Juillet 2022"
+                    description="J'ai développé un site vitrine pour un artisan plombier, conçu avec les technologies HTML, CSS et JavaScript, en m’appuyant sur le framework Bootstrap pour assurer une mise en page responsive et rapide à déployer. Ce site présente les différents services proposés (dépannages, installations, entretiens), ainsi que les informations de contact et un formulaire de demande d’intervention."
                     align="right"
                     delay={0.3}
-                />
-
-                <TimelineItem
-                    title="Baccalauréat Technologique STI2D"
-                    company="Lycée de la Communication"
-                    period="Septembre 2020 - Juin 2021"
-                    description="Diplôme obtenu Mention Assez Bien - Option SIN"
-                    align="left"
-                    delay={0.4}
+                    badges={["Vue.js", "JavaScript", "Node.js", "UI/UX", "BootStrap"]}
+                    badgeColors={[
+                      "bg-green-950/30 text-green-300 border-green-800/50",
+                      "bg-yellow-950/30 text-yellow-300 border-yellow-500/50",
+                      "bg-teal-950/30 text-teal-300 border-teal-800/50",
+                      "bg-fuchsia-950/30 text-fuchsia-300 border-fuchsia-800/50",
+                      "bg-violet-950/30 text-violet-300 border-violet-800/50"
+                    ]}
                 />
               </div>
             </div>
@@ -504,21 +524,21 @@ export default function Portfolio() {
                   <ContactItem
                       icon={<Mail className="h-5 w-5 text-purple-400" />}
                       label="Email"
-                      value="votre.email@exemple.com"
+                      value="julianmayerpro@gmail.com"
                   />
 
                   <ContactItem
                       icon={<Github className="h-5 w-5 text-purple-400" />}
                       label="GitHub"
-                      value="github.com/votre-nom"
-                      link="https://github.com/votre-nom"
+                      value="github.com/xonyis"
+                      link="https://github.com/xonyis"
                   />
 
                   <ContactItem
                       icon={<Linkedin className="h-5 w-5 text-purple-400" />}
                       label="LinkedIn"
-                      value="linkedin.com/in/votre-nom"
-                      link="https://linkedin.com/in/votre-nom"
+                      value="linkedin.com/in/julian-mayer"
+                      link="https://www.linkedin.com/in/julian-mayer-6519a0229/"
                   />
 
                   <div className="pt-6">
@@ -552,6 +572,8 @@ function TimelineItem({
                         description,
                         align = "left",
                         delay = 0,
+                        badges,
+                        badgeColors
                       }: {
   title: string
   company: string
@@ -559,6 +581,8 @@ function TimelineItem({
   description: string
   align?: "left" | "right"
   delay?: number
+  badges?: string[]
+  badgeColors?: string[]
 }) {
   return (
       <motion.div
@@ -583,7 +607,21 @@ function TimelineItem({
                 </div>
                 <span className="text-sm text-gray-400 bg-gray-800/70 px-2 py-1 rounded">{period}</span>
               </div>
-              <p className="text-gray-300">{description}</p>
+              <p className="text-gray-300 text-sm/6">{description}</p>
+              {/* Badges */}
+            {badges && badges.length > 0 && (
+              <div className="flex flex-wrap gap-2 mt-3">
+                {badges.map((badge, index) => (
+                  <Badge
+                    key={index}
+                    variant="outline"
+                    className={badgeColors?.[index] || "bg-gray-800/50 text-gray-300 border-gray-700"}
+                  >
+                    {badge}
+                  </Badge>
+                ))}
+              </div>
+            )}
             </div>
           </Card>
         </div>
