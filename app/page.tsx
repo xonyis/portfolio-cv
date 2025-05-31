@@ -56,20 +56,30 @@ export default function Portfolio() {
     { name: "Contact", href: "#contact" },
   ]
 
+  const handleDownloadCV = () => {
+    // Créer un lien de téléchargement
+    const link = document.createElement("a")
+    link.href = "/CV Mayer Julian - Alternance.pdf"
+    link.download = "CV Mayer Julian - Alternance.pdf"
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
   return (
       <div ref={containerRef} className="min-h-screen bg-zinc-900 text-white overflow-hidden">
         {/* Floating Navigation */}
         <FloatingNav navItems={navItems} activeSection={activeSection} />
 
         {/* Decorative Elements */}
-        <GlowingBlob className="fixed top-[20%] left-[10%] opacity-20 blur-3xl" color="purple" size="lg" />
-        <GlowingBlob className="fixed top-[60%] right-[15%] opacity-20 blur-3xl" color="blue" size="xl" />
+        <GlowingBlob className="fixed top-[20%] left-[10%] opacity-20 blur-3xl" color="purple" size="lg" followMouse={true} />
+        <GlowingBlob className="fixed top-[60%] right-[15%] opacity-20 blur-3xl" color="blue" size="xl" followMouse={true} />
 
         {/* Hero Section */}
         <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
           <motion.div style={{ opacity, y }} className="absolute inset-0 z-0">
 
-            <GlowingBlob className="fixed top-[-45%] right-[-5%] opacity-40 blur-3xl" color="darkPurple" size="xxl" />
+            <GlowingBlob className="fixed top-[-45%] right-[-5%] opacity-40 blur-3xl" color="darkPurple" size="xxl" followMouse={false} />
 
           </motion.div>
 
@@ -150,13 +160,13 @@ export default function Portfolio() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.6 }}
-                className="max-w-3xl mx-auto"
+                className="max-w-4xl mx-auto"
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500">
                 À propos de moi
               </h2>
 
-              <Card className="p-6 md:p-8 bg-gray-900/50 border-gray-800 backdrop-blur-sm relative overflow-hidden">
+              <Card className="flex p-6 md:p-8 bg-gray-900/50 border-gray-800 backdrop-blur-sm relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-tr from-purple-900/10 to-blue-900/10" />
                 <div className="relative z-10">
                   <p className="text-gray-300 leading-relaxed mb-6">
@@ -209,8 +219,12 @@ export default function Portfolio() {
                       Tailwind
                     </Badge>
                   </div>
+                  
                 </div>
-              </Card>
+                <Image src="/memojii-sticker.png" alt="" width={250} // ajuste à la taille que tu veux
+                height={250}
+                className="rounded-full object-contain" />
+                </Card>
             </motion.div>
           </div>
         </section>
@@ -244,7 +258,7 @@ export default function Portfolio() {
                 />
 
                 <TimelineItem
-                    title="Développeur Full stack"
+                    title="Développeur Full Stack"
                     company="Metz Numeric School"
                     period="Septembre 2021 - Juin 2024
 "
@@ -256,7 +270,7 @@ export default function Portfolio() {
                 <TimelineItem
                     title="Baccalauréat Technologique STI2D"
                     company="Lycée de la Communication"
-                    period="Septembre 2020 - Juin 2021"
+                    period="Juin 2021"
                     description="Diplôme obtenu Mention Assez Bien - Option SIN"
                     align="right"
                     delay={0.3}
@@ -292,7 +306,7 @@ export default function Portfolio() {
                     title="Alternant Développeur Analyste"
                     company="Cora Informatique"
                     period="Novembre 2023 - Novembre 2024"
-                    description="J’ai participé à la refonte complète d’une application interne destinée au suivi des performances des fournisseurs. Ce projet avait pour objectif de moderniser l’interface et d’optimiser le traitement des flux de données. L’application permettait de récupérer et analyser des flux fournisseurs, puis de générer automatiquement des KPI (indicateurs de performance) sous format texte et Excel, avant de les transmettre via la plateforme Odrive."
+                    description="J’ai participé à la refonte complète d’une application interne destinée au suivi des performances des fournisseurs. Ce projet avait pour objectif de moderniser l’interface et d’optimiser le traitement des flux de données. L’application permettait de récupérer et d'analyser des flux fournisseurs, puis de générer automatiquement des KPI (indicateurs de performance) sous format texte et Excel, avant de les transmettre via la plateforme Odrive."
                     align="right"
                     delay={0.1}
                     badges={["SpringBoot","Java", "Vue.js", "JavaScript", "BootStrap"]}
@@ -312,10 +326,10 @@ export default function Portfolio() {
                     description="J’ai développé le site web de Witch Ink Tattoo, un salon de tatouage souhaitant valoriser son activité et ses artistes grâce à une présence en ligne soignée et moderne. Une fonctionnalité clé du projet est l’intégration de l’API Instagram, permettant de récupérer automatiquement les dernières photos publiées sur le compte du salon afin de maintenir le site à jour sans effort."
                     align="left"
                     delay={0.2}
-                    badges={["Vue.js", "JavaScript", "Node.js", "UI/UX", "Tailwind"]}
+                    badges={["Vue.js", "GSAP", "Node.js", "UI/UX", "Tailwind"]}
                     badgeColors={[
                       "bg-green-950/30 text-green-300 border-green-800/50",
-                      "bg-yellow-950/30 text-yellow-300 border-yellow-500/50",
+                      "bg-rose-950/30 text-rose-300 border-rose-500/50",
                       "bg-teal-950/30 text-teal-300 border-teal-800/50",
                       "bg-fuchsia-950/30 text-fuchsia-300 border-fuchsia-800/50",
                       "bg-cyan-950/30 text-cyan-300 border-cyan-800/50"
@@ -371,8 +385,8 @@ export default function Portfolio() {
                   <div className="space-y-6">
                     <SkillBar name="Vue.js" value={90} color="green" />
                     <SkillBar name="React / Next.js" value={75} color="purple" />
-                    <SkillBar name="JavaScript / TypeScript" value={95} color="yellow" />
-                    <SkillBar name="HTML / CSS / Tailwind" value={85} color="orange" />
+                    <SkillBar name="JavaScript / TypeScript" value={85} color="yellow" />
+                    <SkillBar name="HTML / CSS / Tailwind" value={95} color="orange" />
                     <SkillBar name="UI/UX Design" value={80} color="violet" />
                   </div>
                 </Card>
@@ -416,15 +430,15 @@ export default function Portfolio() {
                     <SkillBadge name="Git" icon="🔄" />
                     <SkillBadge name="Docker" icon="🐳" />
                     <SkillBadge name="CI/CD" icon="⚙️" />
-                    <SkillBadge name="AWS" icon="☁️" />
+                    <SkillBadge name="Stripe" icon="🛍️" />
                     <SkillBadge name="Agile/Scrum" icon="📊" />
                     <SkillBadge name="UI/UX" icon="🎨" />
                     <SkillBadge name="SEO" icon="🔍" />
                     <SkillBadge name="Testing" icon="🧪" />
-                    <SkillBadge name="Performance" icon="⚡" />
+                    <SkillBadge name="GSAP" icon="🦸‍♂️" />
                     <SkillBadge name="Responsive Design" icon="📱" />
                     <SkillBadge name="Figma" icon="🖌️" />
-                    <SkillBadge name="Photoshop" icon="🖼️" />
+                    <SkillBadge name="Jira" icon="🗓️" />
                   </div>
                 </Card>
               </motion.div>
@@ -447,49 +461,49 @@ export default function Portfolio() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <ProjectCard
-                  title="Application E-commerce"
+                  title="Classio"
                   description="Plateforme de vente en ligne avec panier d'achat, paiement sécurisé et gestion des commandes."
-                  tags={["React", "Node.js", "MongoDB", "Stripe"]}
-                  image="/project1.png"
+                  tags={["Next.Js", "Node.js", "Postgresql", "Prisma", "Tailwind"]}
+                  image="/ClassioCapture.png"
                   delay={0.1}
               />
 
               <ProjectCard
-                  title="Dashboard Analytics"
-                  description="Interface d'administration avec visualisation de données et rapports en temps réel."
-                  tags={["Next.js", "TypeScript", "Chart.js", "Tailwind"]}
-                  image="/project2.png"
+                  title="Triman"
+                  description="Un jeu de dés multijoueur en temps réel où plusieurs participants peuvent s'affronter simultanément, chacun lançant ses dés à tour de rôle"
+                  tags={["Next.js", "TypeScript", "Socket.io", "Tailwind"]}
+                  image="/TrimanCapture.png"
                   delay={0.2}
               />
 
               <ProjectCard
-                  title="Application Mobile"
-                  description="Application mobile cross-platform pour la gestion de tâches et la productivité."
-                  tags={["React Native", "Firebase", "Redux", "Expo"]}
-                  image="/project3.png"
+                  title="Application Interne Cora Informatique"
+                  description="Refonte d’une application interne permettant l’analyse automatisée de flux fournisseurs et la génération de KPI diffusés via Odrive."
+                  tags={["Vue.js", "SpringBoot"]}
+                  image="/CoraInformatique.jpeg"
                   delay={0.3}
               />
 
               <ProjectCard
-                  title="Plateforme Éducative"
-                  description="Site web pour l'apprentissage en ligne avec cours, quiz et suivi de progression."
-                  tags={["Vue.js", "Express", "PostgreSQL", "WebSockets"]}
+                  title="Plateforme Éducative MNS QUIZZ"
+                  description="Projet de fin de troisième années du Bachelor Développeur Full Stack."
+                  tags={["Vue.js", "SpringBoot", "Express", "SpringBoot", "JWT",]}
                   image="/project4.png"
                   delay={0.4}
               />
 
               <ProjectCard
-                  title="Portfolio Créatif"
-                  description="Site vitrine pour un photographe avec galerie d'images et animations."
-                  tags={["React", "Framer Motion", "GSAP", "Styled Components"]}
-                  image="/project5.png"
+                  title="Witch-Ink-Tatoo.fr"
+                  description="Site vitrine pour un salon de tatouage avec des animations et une galerie d'images relié au compte Instagram du salon."
+                  tags={["Vue.js", "Tailwind", "GSAP", "Node.Js"]}
+                  image="/witchInk.jpeg"
                   delay={0.5}
               />
 
               <ProjectCard
-                  title="API RESTful"
-                  description="Backend robuste pour une application de réservation avec authentification JWT."
-                  tags={["Node.js", "Express", "MongoDB", "JWT"]}
+                  title="CEGUIPRO.fr"
+                  description="Site vitrine pour un plombier avec un formulaire de prise de rendez-vous selon les disponibilités de l'artisan."
+                  tags={["HTML", "Bootstrap", "JavaScript", "Node.js"]}
                   image="/project6.png"
                   delay={0.6}
               />
@@ -545,6 +559,7 @@ export default function Portfolio() {
                     <Button
                         className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all duration-300"
                         size="lg"
+                        onClick={handleDownloadCV}
                     >
                       Télécharger mon CV
                     </Button>
@@ -556,8 +571,9 @@ export default function Portfolio() {
         </section>
 
         <footer className="py-8 border-t border-gray-800">
-          <div className="container mx-auto px-4 text-center text-gray-400">
-            <p>© {new Date().getFullYear()} Votre Nom - Tous droits réservés</p>
+          <div className="container mx-auto px-4 text-center text-gray-400 flex justify-center gap-6 items-center">
+            <p>© {new Date().getFullYear()} Julian Mayer - Tous droits réservés</p>
+            <Image src="/memojii-sticker.png" alt="" width={50} height={50} />
           </div>
         </footer>
       </div>
@@ -605,7 +621,7 @@ function TimelineItem({
                   <h3 className="font-bold text-lg text-white">{title}</h3>
                   <p className="text-purple-300">{company}</p>
                 </div>
-                <span className="text-sm text-gray-400 bg-gray-800/70 px-2 py-1 rounded">{period}</span>
+                <span className="text-xs text-gray-400 bg-gray-800/70 px-2 py-1 rounded">{period}</span>
               </div>
               <p className="text-gray-300 text-sm/6">{description}</p>
               {/* Badges */}

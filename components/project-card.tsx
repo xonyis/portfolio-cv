@@ -49,13 +49,13 @@ export function ProjectCard({ title, description, tags, image, delay = 0 }: Proj
             className="absolute inset-0 bg-purple-900/30 backdrop-blur-sm flex items-center justify-center"
           >
             <div className="flex gap-3">
-              <Button size="sm" variant="outline" className="rounded-full bg-black/50 border-white/20">
+              {/* <Button size="sm" variant="outline" className="rounded-full bg-black/50 border-white/20">
                 <Github className="h-4 w-4 mr-1" />
                 Code
-              </Button>
-              <Button size="sm" className="rounded-full bg-purple-600 hover:bg-purple-700">
+              </Button> */}
+              <Button size="sm" className="rounded-full bg-purple-600 text-white hover:bg-purple-700">
                 <ExternalLink className="h-4 w-4 mr-1" />
-                Demo
+                En savoir plus
               </Button>
             </div>
           </motion.div>

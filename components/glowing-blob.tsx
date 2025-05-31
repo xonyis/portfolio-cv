@@ -8,6 +8,7 @@ type GlowingBlobProps = {
   className?: string
   color: "purple" | "blue" | "cyan" | "pink"
   size: "sm" | "md" | "lg" | "xl"
+  followMouse?: boolean
 }
 
 const colorMap = {
@@ -27,10 +28,11 @@ const sizeMap = {
   xxl: "w-[40rem] h-[40rem]",
 }
 
-export function GlowingBlob({ className, color, size }: GlowingBlobProps) {
+export function GlowingBlob({ className, color, size, followMouse = true }: GlowingBlobProps) {
   const blobRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    if (!followMouse) return
     const blob = blobRef.current
     if (!blob) return
 
@@ -65,7 +67,7 @@ export function GlowingBlob({ className, color, size }: GlowingBlobProps) {
     return () => {
       window.removeEventListener("mousemove", handleMouseMove)
     }
-  }, [])
+  }, [followMouse])
 
   return (
       <motion.div
@@ -78,12 +80,18 @@ export function GlowingBlob({ className, color, size }: GlowingBlobProps) {
           )}
           animate={{
             scale: [1, 1.1, 1],
-            borderRadius: ["60% 40% 30% 70%", "40% 60% 70% 30%", "60% 40% 30% 70%"],
+            borderRadius: [
+              "60% 40% 30% 70%",
+              "40% 60% 70% 30%",
+              "60% 40% 30% 70%",
+            ],
+            ...(followMouse && { y: [0, -40, 0, 40, 0] }),
           }}
           transition={{
-            duration: 8,
+            duration: 10,
             repeat: Number.POSITIVE_INFINITY,
-            repeatType: "reverse",
+            repeatType: "loop",
+            ease: "easeInOut",
           }}
       />
   )
