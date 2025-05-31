@@ -166,7 +166,7 @@ export default function Portfolio() {
                 À propos de moi
               </h2>
 
-              <Card className="flex p-6 md:p-8 bg-gray-900/50 border-gray-800 backdrop-blur-sm relative overflow-hidden">
+              <Card className="flex flex-col-reverse items-center md:flex-row p-6 md:p-8 bg-gray-900/50 border-gray-800 backdrop-blur-sm  overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-tr from-purple-900/10 to-blue-900/10" />
                 <div className="relative z-10">
                   <p className="text-gray-300 leading-relaxed mb-6">
