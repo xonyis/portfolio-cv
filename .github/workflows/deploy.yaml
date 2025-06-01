@@ -2,7 +2,7 @@ name: Deploy to Hostinger
 
 on:
   push:
-    branches: [ master ]  # Support des deux branches principales
+    branches: [ main, master ]  # Support des deux branches principales
   workflow_dispatch:    # permet de déclencher manuellement
 
 jobs:
@@ -20,8 +20,7 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: |
-          npm ci --legacy-peer-deps || npm install --legacy-peer-deps
+        run: npm ci --legacy-peer-deps
 
       - name: Build and export Next.js project
         run: npm run build
