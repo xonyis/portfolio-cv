@@ -490,6 +490,19 @@ export default function Portfolio() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <ProjectCard
+                  title="XonyisOs"
+                  description={<Button
+                      size="sm"
+                      className="rounded-full bg-black/30 backdrop-blur-sm border border-white/10  transition-all duration-300 hover:bg-black/50 hover:border-white/30 hover:scale-105 hover:shadow-lg"
+                      asChild
+                  >
+                    <Link href="/xonyisOs" className="text-white font-pixelify">📺 XonyisOs</Link>
+                  </Button>}
+                  tags={["Next.Js", "Node.js", "Tailwind"]}
+                  image="/ClassioCapture.png"
+                  delay={0.1}
+              />
+              <ProjectCard
                   title="Classio"
                   description="Application permettant aux élèves, parents et professeurs de rester connectés. Elle regroupe tous les éléments clés du parcours scolaire : planning des cours, résultats, assignments, suivi des présences, communication et progression pédagogique."
                   tags={["Next.Js", "Node.js", "Postgresql", "Prisma", "Tailwind"]}
