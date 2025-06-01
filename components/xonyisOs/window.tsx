@@ -103,13 +103,13 @@ export function MacWindow({
                         }}
                         className="w-5 h-5 flex items-center justify-center"
                     >
-                        <X className="w-5 h-5 text-black" />
+                        <X className="w-5 h-5 text-red-600" />
                     </button>
 
                 </div>
 
                 {/* Title */}
-                <div className={`text-xs font-medium text-gray-700`}>{title}</div>
+                <div className={`text-s font-medium text-gray-700`}>{title}</div>
 
                 {/* Empty space for balance */}
                 <div className="w-12"></div>

@@ -2,7 +2,9 @@
 
 import * as React from "react"
 import { MacWindow } from "@/components/xonyisOs/window"
-import { Folder, FileText, Palette, Edit } from "lucide-react"
+import { Folder, FileText, Palette, LogOut  } from "lucide-react"
+import Image from "next/image";
+import Link from "next/link";
 
 interface WindowData {
     id: string
@@ -100,12 +102,6 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                 <div className="h-full flex flex-col">
                     {/* Toolbar */}
                     <div className="flex items-center space-x-2 p-2 border-b border-gray-300 bg-gray-50">
-                        <button className="p-1 border border-gray-300 hover:bg-gray-200">
-                            <Edit className="w-4 h-4" />
-                        </button>
-                        <button className="p-1 border border-gray-300 hover:bg-gray-200">
-                            <Palette className="w-4 h-4" />
-                        </button>
                         <div className="flex space-x-1 ml-4">
                             {["#000", "#f00", "#0f0", "#00f", "#ff0", "#f0f", "#0ff"].map((color) => (
                                 <div
@@ -194,8 +190,68 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
             width: 500,
             height: 400,
             content: (
-                <div className="h-full flex flex-col">
-                   indof
+                <div className="h-full flex flex-col ">
+                    <span className="text-lg font-medium text-black font-pixelify text-center mb-3">
+                        {new Date().toLocaleTimeString("fr-FR", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                        })}
+                    </span>
+                    <div className=" flex justify-center ">
+                        <div>
+                            <Image
+                                src="/memojii-sticker.png"
+                                alt=""
+                                width={100} // ajuste à la taille que tu veux
+                                height={100}
+                                className="rounded-full object-contain ml-4"
+                            />
+                            <p className="text-black underline text-center text-sm/3">Xonyis Os<br/>
+                                <span className="text-neutral-400 text-xs underline text-center">V1.0.0</span><br/>
+
+                            </p>
+
+                        </div>
+                    </div>
+                    {/* Informations de profil */}
+                    <div className="flex-1 mx-auto px-4 space-y-4">
+                        <div className="flex items-center space-x-3">
+                            <div className="w-6 h-6 bg-blue-500 rounded flex items-center justify-center">
+                                <span className="text-white text-xs">@</span>
+                            </div>
+                            <div>
+                                <p className="text-xs text-neutral-500">Email</p>
+                                <p className="text-sm text-black">juliamayerpro@gmail.com</p>
+                            </div>
+                        </div>
+
+                        <div className="flex items-center space-x-3">
+                            <div className="w-6 h-6 bg-gray-800 rounded flex items-center justify-center">
+                                <span className="text-white text-xs">G</span>
+                            </div>
+                            <div>
+                                <p className="text-xs text-neutral-500">GitHub</p>
+                                <p className="text-sm text-black">github.com/xonyis</p>
+                            </div>
+                        </div>
+
+                        <div className="flex items-center space-x-3">
+                            <div className="w-6 h-6 bg-blue-600 rounded flex items-center justify-center">
+                                <span className="text-white text-xs">in</span>
+                            </div>
+                            <div>
+                                <p className="text-xs text-neutral-500">LinkedIn</p>
+                                <p className="text-sm text-black">linkedin.com/in/julian-mayer</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Bouton de déconnexion */}
+                    <div className="p-2 flex text-center">
+                        <Link href="/" className="mx-auto text-red-500 hover:text-red-600 text-white  rounded-lg transition-colors duration-200 text-sm font-medium">
+                            <span><LogOut className="w-5 h-5"></LogOut> </span>
+                        </Link>
+                    </div>
                 </div>
             ),
         }
