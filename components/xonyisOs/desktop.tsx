@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {useEffect, useState} from "react";
 import Calculator from "@/components/xonyisOs/calculator"
+import Paint from "@/components/xonyisOs/paint"
 interface WindowData {
     id: string
     title: string
@@ -14,6 +15,7 @@ interface WindowData {
     position: { x: number; y: number }
     width?: number
     height?: number
+
 }
 
 interface DesktopProps {
@@ -46,32 +48,10 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
     const availableApps = {
         paint: {
             title: "Paint",
-            width: 500,
-            height: 400,
+            width: 650,
+            height: 820,
             content: (
-                <div className="h-full flex flex-col">
-                    {/* Toolbar */}
-                    <div className="flex items-center space-x-2 p-2 border-b border-gray-300 bg-gray-50">
-                        <div className="flex space-x-1 ml-4">
-                            {["#000", "#f00", "#0f0", "#00f", "#ff0", "#f0f", "#0ff"].map((color) => (
-                                <div
-                                    key={color}
-                                    className="w-4 h-4 border border-gray-400 cursor-pointer"
-                                    style={{ backgroundColor: color }}
-                                />
-                            ))}
-                        </div>
-                    </div>
-                    {/* Canvas */}
-                    <div className="flex-1 bg-white border border-gray-300 m-2">
-                        <canvas
-                            width="460"
-                            height="320"
-                            className="w-full h-full cursor-crosshair"
-                            style={{ imageRendering: "pixelated" }}
-                        />
-                    </div>
-                </div>
+                <Paint/>
             ),
         },
         finder: {
@@ -115,7 +95,7 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
         },
         calculator: {
             title: "Calculator",
-            width: 250,
+            width: 300,
             height: 492,
             content: (
                 <Calculator/>

@@ -4,6 +4,7 @@ import * as React from "react"
 import { X, Minus, Square } from "lucide-react"
 import {useEffect, useState} from "react";
 
+
 interface MacWindowProps {
     title: string
     children: React.ReactNode
@@ -13,7 +14,19 @@ interface MacWindowProps {
     onFocus?: () => void
     width?: number
     height?: number
+    resizable?: boolean
 }
+
+type ResizeDirection =
+    | "top"
+    | "right"
+    | "bottom"
+    | "left"
+    | "topLeft"
+    | "topRight"
+    | "bottomLeft"
+    | "bottomRight"
+    | null
 
 export function MacWindow({
                               title,
@@ -24,13 +37,28 @@ export function MacWindow({
                               onFocus,
                               width = 400,
                               height = 300,
+                              resizable = true,
                           }: MacWindowProps) {
     const [position, setPosition] = React.useState(initialPosition)
     const [isDragging, setIsDragging] = React.useState(false)
+    const [size, setSize] = React.useState({ width, height })
     const [dragOffset, setDragOffset] = React.useState({ x: 0, y: 0 })
+    const [resizeStart, setResizeStart] = React.useState({ x: 0, y: 0, width: 0, height: 0 })
     const windowRef = React.useRef<HTMLDivElement>(null)
     const [time, setTime] = useState(new Date())
+    const [isResizing, setIsResizing] = React.useState<ResizeDirection>(null)
 
+
+    // Constantes pour les tailles minimales
+    const MIN_WIDTH = 200
+    const MIN_HEIGHT = 150
+    // Directions de redimensionnement autorisées
+    const allowedResizeDirections: ResizeDirection[] = [
+        "right",
+        "bottom",
+        "bottomRight",
+        // "top", "left", "topLeft", "topRight", "bottomLeft" sont désactivés
+    ]
     useEffect(() => {
         const timer = setInterval(() => {
             setTime(new Date())
@@ -58,29 +86,79 @@ export function MacWindow({
         setIsDragging(true)
     }
 
+    const handleResizeStart = (e: React.MouseEvent, direction: ResizeDirection) => {
+        // Vérifier si la direction est autorisée
+        if (!allowedResizeDirections.includes(direction)) return
+
+        e.preventDefault()
+        e.stopPropagation()
+
+        if (onFocus) onFocus()
+
+        setIsResizing(direction)
+        setResizeStart({
+            x: e.clientX,
+            y: e.clientY,
+            width: size.width,
+            height: size.height,
+        })
+    }
+
     React.useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
+            // Gestion du déplacement
             if (isDragging) {
                 // Nouvelle position = position de la souris - décalage initial
                 const newX = e.clientX - dragOffset.x
                 const newY = e.clientY - dragOffset.y
 
                 // Limiter les fenêtres aux bords de l'écran
-                const maxX = window.innerWidth - width
-                const maxY = window.innerHeight - height
+                const maxX = window.innerWidth - size.width
+                const maxY = window.innerHeight - size.height
 
                 setPosition({
                     x: Math.max(0, Math.min(newX, maxX)),
                     y: Math.max(28, Math.min(newY, maxY)), // 28px pour la barre de menu
                 })
             }
+
+            // Gestion du redimensionnement
+            if (isResizing && resizable) {
+                const deltaX = e.clientX - resizeStart.x
+                const deltaY = e.clientY - resizeStart.y
+
+                let newWidth = resizeStart.width
+                let newHeight = resizeStart.height
+                const newX = position.x
+                const newY = position.y
+
+                // Calcul des nouvelles dimensions selon la direction
+                switch (isResizing) {
+                    case "right":
+                        newWidth = Math.max(MIN_WIDTH, resizeStart.width + deltaX)
+                        break
+                    case "bottom":
+                        newHeight = Math.max(MIN_HEIGHT, resizeStart.height + deltaY)
+                        break
+                    case "bottomRight":
+                        newWidth = Math.max(MIN_WIDTH, resizeStart.width + deltaX)
+                        newHeight = Math.max(MIN_HEIGHT, resizeStart.height + deltaY)
+                        break
+                    // Les autres cas sont désactivés
+                }
+
+                // Mise à jour des dimensions et position
+                setSize({ width: newWidth, height: newHeight })
+                setPosition({ x: newX, y: newY })
+            }
         }
 
         const handleMouseUp = () => {
             setIsDragging(false)
+            setIsResizing(null)
         }
 
-        if (isDragging) {
+        if (isDragging || isResizing) {
             document.addEventListener("mousemove", handleMouseMove)
             document.addEventListener("mouseup", handleMouseUp)
         }
@@ -89,7 +167,23 @@ export function MacWindow({
             document.removeEventListener("mousemove", handleMouseMove)
             document.removeEventListener("mouseup", handleMouseUp)
         }
-    }, [isDragging, dragOffset, width, height, position.x, position.y])
+    }, [isDragging, isResizing, dragOffset, position, size, resizeStart, resizable])
+
+    // Fonction pour obtenir le style du curseur selon la position
+    const getResizeCursor = (direction: ResizeDirection): string => {
+        if (!allowedResizeDirections.includes(direction)) return "default"
+
+        switch (direction) {
+            case "bottom":
+                return "ns-resize"
+            case "right":
+                return "ew-resize"
+            case "bottomRight":
+                return "nwse-resize"
+            default:
+                return "default"
+        }
+    }
 
     return (
         <div
@@ -98,8 +192,8 @@ export function MacWindow({
             style={{
                 left: position.x,
                 top: position.y,
-                width: width,
-                height: height,
+                width: size.width,
+                height: size.height,
                 cursor: isDragging ? "grabbing" : "default",
             }}
             onClick={onFocus}
@@ -119,9 +213,9 @@ export function MacWindow({
                             e.stopPropagation()
                             if (onClose) onClose()
                         }}
-                        className="w-5 h-5 flex items-center justify-center"
+                        className="w-5 h-5 flex items-center justify-center  "
                     >
-                        <X className="w-5 h-5 text-red-600" />
+                        <X className="w-5 h-5 text-red-600 " />
                     </button>
 
                 </div>
@@ -134,9 +228,27 @@ export function MacWindow({
             </div>
 
             {/* Window Content */}
-            <div className=" overflow-auto bg-white" style={{ height: height - 24 }}>
+            <div className=" overflow-hidden bg-white" style={{ height: size.height - 24 }}>
                 {children}
             </div>
+            {/* Resize Handles - only shown if resizable */}
+            {resizable && (
+                <>
+                    {/* Seuls les bords droit et bas, et le coin bas-droit sont actifs */}
+                    <div
+                        className="absolute w-3 h-3 bottom-0 right-0 cursor-nwse-resize"
+                        onMouseDown={(e) => handleResizeStart(e, "bottomRight")}
+                    />
+                    <div
+                        className="absolute w-3 top-3 bottom-3 right-0 cursor-ew-resize"
+                        onMouseDown={(e) => handleResizeStart(e, "right")}
+                    />
+                    <div
+                        className="absolute h-3 left-3 right-3 bottom-0 cursor-ns-resize"
+                        onMouseDown={(e) => handleResizeStart(e, "bottom")}
+                    />
+                </>
+            )}
         </div>
     )
 }
