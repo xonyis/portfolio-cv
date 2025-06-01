@@ -2,13 +2,13 @@ name: Deploy to Hostinger
 
 on:
   push:
-    branches: [ master ]  # ou master selon votre branche principale
+    branches: [ master ]  # Support des deux branches principales
   workflow_dispatch:    # permet de déclencher manuellement
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -20,16 +20,14 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci --force
+        run: |
+          npm ci --legacy-peer-deps || npm install --legacy-peer-deps
 
-      - name: Build Next.js project
+      - name: Build and export Next.js project
         run: npm run build
         env:
           NODE_ENV: production
-
-      - name: Export static files (si vous utilisez next export)
-        run: npm run export
-        # Décommentez si vous avez configuré next export dans package.json
+          CI: true
 
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
