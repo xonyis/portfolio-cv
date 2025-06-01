@@ -116,7 +116,7 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
         calculator: {
             title: "Calculator",
             width: 250,
-            height: 400,
+            height: 492,
             content: (
                 <Calculator/>
             ),
@@ -182,7 +182,13 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                     {/* Bouton de déconnexion */}
                     <div className="p-2 flex text-center">
                         <Link href="/" className="mx-auto text-red-500 hover:text-red-600 text-white  rounded-lg transition-colors duration-200 text-sm font-medium">
-                            <span><LogOut className="w-5 h-5 text-red-600"></LogOut> </span>
+                            <Image
+                                src="/Power_Red.png"
+                                alt=""
+                                width={48} // ajuste à la taille que tu veux
+                                height={48}
+                                className=" object-contain"
+                            />
                         </Link>
                     </div>
                 </div>
@@ -266,7 +272,7 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                     onDoubleClick={() => openWindow("paint")}
                 >
                     <Image
-                        src="/Mountains_Lightblue.png"
+                        src="/paintIcon.png"
                         alt=""
                         width={48} // ajuste à la taille que tu veux
                         height={48}
@@ -280,7 +286,7 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                     onDoubleClick={() => openWindow("textedit")}
                 >
                     <Image
-                        src="/Writing_Lightgreen.png"
+                        src="/textEditIcon.png"
                         alt=""
                         width={48} // ajuste à la taille que tu veux
                         height={48}
@@ -294,7 +300,7 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                     onDoubleClick={() => openWindow("calculator")}
                 >
                     <Image
-                        src="/Calculator_Black.png"
+                        src="/CalculatorIcon.png"
                         alt=""
                         width={48} // ajuste à la taille que tu veux
                         height={48}

@@ -134,7 +134,7 @@ export function MacWindow({
             </div>
 
             {/* Window Content */}
-            <div className="p-1 overflow-auto bg-white" style={{ height: height - 24 }}>
+            <div className=" overflow-auto bg-white" style={{ height: height - 24 }}>
                 {children}
             </div>
         </div>

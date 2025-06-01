@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 
-export default function Calculatrice() {
+export default function CalculatriceRetro() {
     const [display, setDisplay] = useState("0")
     const [storedValue, setStoredValue] = useState<number | null>(null)
     const [operator, setOperator] = useState<string | null>(null)
@@ -85,146 +85,160 @@ export default function Calculatrice() {
         setWaitingForOperand(true)
     }
 
-    const toggleSign = () => {
-        const value = Number.parseFloat(display)
-        setDisplay(String(-value))
-    }
-
-    const calculatePercentage = () => {
-        const value = Number.parseFloat(display)
-        setDisplay(String(value / 100))
-    }
-
     return (
-        <div className="mx-auto max-w-xs">
-            <div className="rounded-t-lg bg-gray-500 p-3 shadow-inner">
-
-                <div className="flex font-pixelify h-16 items-center justify-end overflow-hidden rounded bg-gray-200 px-2 font-mono text-right text-3xl text-[#3a3a3a] shadow-inner">
-                    {display}
+        <div className="mx-auto max-w-full">
+            {/* Corps principal avec effet métallique */}
+            <div
+                className="pt-0 bg-gradient-to-b from-gray-300 via-gray-400 to-gray-500 p-4 shadow-2xl  border-gray-300"
+                style={{
+                    boxShadow:
+                        "inset 0 2px 4px rgba(255,255,255,0.3), inset 0 -2px 4px rgba(0,0,0,0.3), 0 8px 32px rgba(0,0,0,0.3)",
+                }}
+            >
+                {/* Boutons de contrôle du haut */}
+                <div className="mb-4 flex justify-between">
+                    <div className="text-sm text-red-600 font-bold">XON CALC 2.7</div>
+                    <div className="flex gap-2">
+                        <div className="h-2 w-2 rounded-full bg-gray-800"></div>
+                        <div className="h-2 w-2 rounded-full bg-gray-800"></div>
+                    </div>
                 </div>
-            </div>
-            <div className="rounded-b-lg bg-gray-300 p-2 shadow-lg">
-                <div className="grid grid-cols-4 gap-1">
-                    <button
-                        onClick={clearAll}
-                        className="rounded-md bg-[#e87461] px-4 py-3 text-white shadow-md hover:bg-[#d86450] active:translate-y-0.5"
-                    >
-                        AC
-                    </button>
-                    <button
-                        onClick={clearDisplay}
-                        className="rounded-md bg-[#e87461] px-4 py-3 text-white shadow-md hover:bg-[#d86450] active:translate-y-0.5"
-                    >
-                        C
-                    </button>
-                    <button
-                        onClick={calculatePercentage}
-                        className="rounded-md bg-[#e0a458] px-4 py-3 text-white shadow-md hover:bg-[#d09448] active:translate-y-0.5"
-                    >
-                        %
-                    </button>
-                    <button
-                        onClick={() => handleOperator("÷")}
-                        className="rounded-md bg-[#e0a458] px-4 py-3 text-white shadow-md hover:bg-[#d09448] active:translate-y-0.5"
-                    >
-                        ÷
-                    </button>
-                    <button
-                        onClick={() => inputDigit("7")}
-                        className="rounded-md bg-[#d8d0c5] px-4 py-3 text-[#3a3a3a] shadow-md hover:bg-[#c8c0b5] active:translate-y-0.5"
-                    >
-                        7
-                    </button>
-                    <button
-                        onClick={() => inputDigit("8")}
-                        className="rounded-md bg-[#d8d0c5] px-4 py-3 text-[#3a3a3a] shadow-md hover:bg-[#c8c0b5] active:translate-y-0.5"
-                    >
-                        8
-                    </button>
-                    <button
-                        onClick={() => inputDigit("9")}
-                        className="rounded-md bg-[#d8d0c5] px-4 py-3 text-[#3a3a3a] shadow-md hover:bg-[#c8c0b5] active:translate-y-0.5"
-                    >
-                        9
-                    </button>
-                    <button
-                        onClick={() => handleOperator("×")}
-                        className="rounded-md bg-[#e0a458] px-4 py-3 text-white shadow-md hover:bg-[#d09448] active:translate-y-0.5"
-                    >
-                        ×
-                    </button>
-                    <button
-                        onClick={() => inputDigit("4")}
-                        className="rounded-md bg-[#d8d0c5] px-4 py-3 text-[#3a3a3a] shadow-md hover:bg-[#c8c0b5] active:translate-y-0.5"
-                    >
-                        4
-                    </button>
-                    <button
-                        onClick={() => inputDigit("5")}
-                        className="rounded-md bg-[#d8d0c5] px-4 py-3 text-[#3a3a3a] shadow-md hover:bg-[#c8c0b5] active:translate-y-0.5"
-                    >
-                        5
-                    </button>
-                    <button
-                        onClick={() => inputDigit("6")}
-                        className="rounded-md bg-[#d8d0c5] px-4 py-3 text-[#3a3a3a] shadow-md hover:bg-[#c8c0b5] active:translate-y-0.5"
-                    >
-                        6
-                    </button>
-                    <button
-                        onClick={() => handleOperator("-")}
-                        className="rounded-md bg-[#e0a458] px-4 py-3 text-white shadow-md hover:bg-[#d09448] active:translate-y-0.5"
-                    >
-                        -
-                    </button>
-                    <button
-                        onClick={() => inputDigit("1")}
-                        className="rounded-md bg-[#d8d0c5] px-4 py-3 text-[#3a3a3a] shadow-md hover:bg-[#c8c0b5] active:translate-y-0.5"
-                    >
-                        1
-                    </button>
-                    <button
-                        onClick={() => inputDigit("2")}
-                        className="rounded-md bg-[#d8d0c5] px-4 py-3 text-[#3a3a3a] shadow-md hover:bg-[#c8c0b5] active:translate-y-0.5"
-                    >
-                        2
-                    </button>
-                    <button
-                        onClick={() => inputDigit("3")}
-                        className="rounded-md bg-[#d8d0c5] px-4 py-3 text-[#3a3a3a] shadow-md hover:bg-[#c8c0b5] active:translate-y-0.5"
-                    >
-                        3
-                    </button>
-                    <button
-                        onClick={() => handleOperator("+")}
-                        className="rounded-md bg-[#e0a458] px-4 py-3 text-white shadow-md hover:bg-[#d09448] active:translate-y-0.5"
-                    >
-                        +
-                    </button>
-                    <button
-                        onClick={toggleSign}
-                        className="rounded-md bg-[#d8d0c5] px-4 py-3 text-[#3a3a3a] shadow-md hover:bg-[#c8c0b5] active:translate-y-0.5"
-                    >
-                        +/-
-                    </button>
-                    <button
-                        onClick={() => inputDigit("0")}
-                        className="rounded-md bg-[#d8d0c5] px-4 py-3 text-[#3a3a3a] shadow-md hover:bg-[#c8c0b5] active:translate-y-0.5"
-                    >
-                        0
-                    </button>
-                    <button
-                        onClick={inputDecimal}
-                        className="rounded-md bg-[#d8d0c5] px-4 py-3 text-[#3a3a3a] shadow-md hover:bg-[#c8c0b5] active:translate-y-0.5"
-                    >
-                        .
-                    </button>
-                    <button
-                        onClick={handleEquals}
-                        className="rounded-md bg-[#e0a458] px-4 py-3 text-white shadow-md hover:bg-[#d09448] active:translate-y-0.5"
-                    >
-                        =
-                    </button>
+
+                {/* Écran LCD */}
+                <div className="mb-2 rounded-lg bg-black p-4 shadow-inner border-2 border-gray-600">
+                    <div className="text-xs text-red-500 font-bold mb-1">8BitDo RETRO NUMPAD</div>
+                    <div className="flex justify-between items-center mb-2">
+                        <div className="text-red-500 font-mono text-2xl font-bold tracking-wider">{display.padStart(4, "0")}</div>
+                        <div className="text-red-500 font-mono text-lg">10 18</div>
+                    </div>
+                    <div className="flex justify-between text-xs text-red-500">
+                        <span>SOC(%)</span>
+                        <span>INPUT(W)</span>
+                    </div>
+                </div>
+
+                {/* Pavé numérique */}
+                <div className="rounded-lg bg-gray-700 p-3 shadow-inner">
+                    <div className="grid grid-cols-4 gap-2">
+                        {/* Première rangée */}
+                        <button
+                            onClick={clearDisplay}
+                            className="h-12 rounded-md bg-gray-600 text-red-500 font-bold shadow-md hover:bg-gray-500 active:shadow-inner"
+                        >
+                            C
+                        </button>
+                        <button
+                            onClick={() => handleOperator("÷")}
+                            className="h-12 rounded-md bg-gray-600 text-red-500 font-bold shadow-md hover:bg-gray-500 active:shadow-inner"
+                        >
+                            ÷
+                        </button>
+                        <button
+                            onClick={() => handleOperator("×")}
+                            className="h-12 rounded-md bg-gray-600 text-red-500 font-bold shadow-md hover:bg-gray-500 active:shadow-inner"
+                        >
+                            ×
+                        </button>
+                        <button
+                            onClick={clearAll}
+                            className="h-12 rounded-md bg-gray-600 text-red-500 font-bold shadow-md hover:bg-gray-500 active:shadow-inner"
+                        >
+                            ←
+                        </button>
+
+                        {/* Deuxième rangée */}
+                        <button
+                            onClick={() => inputDigit("7")}
+                            className="h-12 rounded-md bg-gray-200 text-red-600 font-bold shadow-md hover:bg-gray-100 active:shadow-inner"
+                        >
+                            7
+                        </button>
+                        <button
+                            onClick={() => inputDigit("8")}
+                            className="h-12 rounded-md bg-gray-200 text-red-600 font-bold shadow-md hover:bg-gray-100 active:shadow-inner"
+                        >
+                            8
+                        </button>
+                        <button
+                            onClick={() => inputDigit("9")}
+                            className="h-12 rounded-md bg-gray-200 text-red-600 font-bold shadow-md hover:bg-gray-100 active:shadow-inner"
+                        >
+                            9
+                        </button>
+                        <button
+                            onClick={() => handleOperator("-")}
+                            className="h-12 rounded-md bg-gray-600 text-red-500 font-bold shadow-md hover:bg-gray-500 active:shadow-inner"
+                        >
+                            -
+                        </button>
+
+                        {/* Troisième rangée */}
+                        <button
+                            onClick={() => inputDigit("4")}
+                            className="h-12 rounded-md bg-gray-200 text-red-600 font-bold shadow-md hover:bg-gray-100 active:shadow-inner"
+                        >
+                            4
+                        </button>
+                        <button
+                            onClick={() => inputDigit("5")}
+                            className="h-12 rounded-md bg-gray-200 text-red-600 font-bold shadow-md hover:bg-gray-100 active:shadow-inner"
+                        >
+                            5
+                        </button>
+                        <button
+                            onClick={() => inputDigit("6")}
+                            className="h-12 rounded-md bg-gray-200 text-red-600 font-bold shadow-md hover:bg-gray-100 active:shadow-inner"
+                        >
+                            6
+                        </button>
+                        <button
+                            onClick={() => handleOperator("+")}
+                            className="h-12 rounded-md bg-gray-600 text-red-500 font-bold shadow-md hover:bg-gray-500 active:shadow-inner"
+                        >
+                            +
+                        </button>
+
+                        {/* Quatrième rangée */}
+                        <button
+                            onClick={() => inputDigit("1")}
+                            className="h-12 rounded-md bg-gray-200 text-red-600 font-bold shadow-md hover:bg-gray-100 active:shadow-inner"
+                        >
+                            1
+                        </button>
+                        <button
+                            onClick={() => inputDigit("2")}
+                            className="h-12 rounded-md bg-gray-200 text-red-600 font-bold shadow-md hover:bg-gray-100 active:shadow-inner"
+                        >
+                            2
+                        </button>
+                        <button
+                            onClick={() => inputDigit("3")}
+                            className="h-12 rounded-md bg-gray-200 text-red-600 font-bold shadow-md hover:bg-gray-100 active:shadow-inner"
+                        >
+                            3
+                        </button>
+                        <button
+                            onClick={handleEquals}
+                            className="h-26 rounded-md bg-gray-600 text-red-500 font-bold shadow-md hover:bg-gray-500 active:shadow-inner row-span-2 flex items-center justify-center"
+                            style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
+                        >
+                            ENTER
+                        </button>
+
+                        {/* Cinquième rangée */}
+                        <button
+                            onClick={() => inputDigit("0")}
+                            className="h-12 rounded-md bg-gray-200 text-red-600 font-bold shadow-md hover:bg-gray-100 active:shadow-inner col-span-2"
+                        >
+                            0
+                        </button>
+                        <button
+                            onClick={inputDecimal}
+                            className="h-12 rounded-md bg-gray-200 text-red-600 font-bold shadow-md hover:bg-gray-100 active:shadow-inner"
+                        >
+                            .
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
