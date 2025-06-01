@@ -273,6 +273,19 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
             <div className="absolute top-4 left-4 space-y-4 font-pixelify">
                 <div
                     className="flex flex-col items-center cursor-pointer hover:bg-white/20 p-2 rounded"
+                    onDoubleClick={() => openWindow("finder")}
+                >
+                    <Image
+                        src="/finder.png"
+                        alt=""
+                        width={48} // ajuste à la taille que tu veux
+                        height={48}
+                        className=" object-contain"
+                    />
+                    <span className="text-xs text-white">Finder</span>
+                </div>
+                <div
+                    className="flex flex-col items-center cursor-pointer hover:bg-white/20 p-2 rounded"
                     onDoubleClick={() => openWindow("paint")}
                 >
                     <Image
