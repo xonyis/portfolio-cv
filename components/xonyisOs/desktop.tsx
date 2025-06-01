@@ -8,6 +8,7 @@ import Link from "next/link";
 import {useEffect, useState} from "react";
 import Calculator from "@/components/xonyisOs/calculator"
 import Paint from "@/components/xonyisOs/paint"
+import SnakeGamePage from "@/components/xonyisOs/snake";
 interface WindowData {
     id: string
     title: string
@@ -15,7 +16,8 @@ interface WindowData {
     position: { x: number; y: number }
     width?: number
     height?: number
-
+    resizable?: boolean
+    scrollable?: boolean
 }
 
 interface DesktopProps {
@@ -50,6 +52,8 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
             title: "Paint",
             width: 650,
             height: 820,
+            resizable: true,
+            scrollable: true,
             content: (
                 <Paint/>
             ),
@@ -58,6 +62,8 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
             title: "Finder",
             width: 450,
             height: 350,
+            resizable: true,
+            scrollable: false,
             content: (
                 <div className="space-y-3">
                     <div className="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
@@ -83,6 +89,8 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
             title: "TextEdit",
             width: 400,
             height: 300,
+            resizable: true,
+            scrollable: false,
             content: (
                 <div className="h-full">
           <textarea
@@ -97,14 +105,28 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
             title: "Calculator",
             width: 300,
             height: 492,
+            resizable: false,
+            scrollable: false,
             content: (
                 <Calculator/>
+            ),
+        },
+        snake: {
+            title: "Snake",
+            width: 325,
+            height: 470,
+            resizable: false,
+            scrollable: false,
+            content: (
+                <SnakeGamePage/>
             ),
         },
         infos: {
             title: "Infos",
             width: 500,
             height: 400,
+            resizable: true,
+            scrollable: true,
             content: (
                 <div className="h-full flex flex-col ">
                     <span className="text-lg font-medium text-black font-pixelify text-center mb-3">
@@ -121,7 +143,6 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                             />
                             <p className="text-black underline text-center text-sm/3">Xonyis Os<br/>
                                 <span className="text-neutral-400 text-xs underline text-center">V1.0.0</span><br/>
-
                             </p>
 
                         </div>
@@ -209,6 +230,9 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
             width: app.width,
             height: app.height,
             content: app.content,
+            resizable: app.resizable !== false,
+            scrollable: app.scrollable === true, // Par défaut false sauf si explicitement true
+
         }
 
         setWindows([...windows, newWindow])
@@ -303,6 +327,9 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                     onFocus={() => focusWindow(window.id)}
                     width={window.width}
                     height={window.height}
+                    resizable={window.resizable}
+                    scrollable={window.scrollable}
+
                 >
                     {window.content}
                 </MacWindow>

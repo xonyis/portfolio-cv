@@ -15,6 +15,7 @@ interface MacWindowProps {
     width?: number
     height?: number
     resizable?: boolean
+    scrollable?: boolean
 }
 
 type ResizeDirection =
@@ -38,6 +39,7 @@ export function MacWindow({
                               width = 400,
                               height = 300,
                               resizable = true,
+                              scrollable = false,
                           }: MacWindowProps) {
     const [position, setPosition] = React.useState(initialPosition)
     const [isDragging, setIsDragging] = React.useState(false)
@@ -47,6 +49,7 @@ export function MacWindow({
     const windowRef = React.useRef<HTMLDivElement>(null)
     const [time, setTime] = useState(new Date())
     const [isResizing, setIsResizing] = React.useState<ResizeDirection>(null)
+    const contentRef = React.useRef<HTMLDivElement>(null)
 
 
     // Constantes pour les tailles minimales
@@ -103,6 +106,21 @@ export function MacWindow({
             height: size.height,
         })
     }
+
+
+    // Gestionnaire de scroll pour les fenêtres scrollables
+    const handleWheel = React.useCallback(
+        (e: WheelEvent) => {
+            if (scrollable && contentRef.current) {
+                // Permettre le scroll uniquement si la fenêtre est active et scrollable
+                if (isActive) {
+                    e.stopPropagation()
+                    // Le scroll natif du navigateur s'occupera du reste
+                }
+            }
+        },
+        [scrollable, isActive],
+    )
 
     React.useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
@@ -169,6 +187,17 @@ export function MacWindow({
         }
     }, [isDragging, isResizing, dragOffset, position, size, resizeStart, resizable])
 
+    // Ajouter l'event listener pour le scroll
+    React.useEffect(() => {
+        const windowElement = windowRef.current
+        if (windowElement && scrollable) {
+            windowElement.addEventListener("wheel", handleWheel, { passive: false })
+            return () => {
+                windowElement.removeEventListener("wheel", handleWheel)
+            }
+        }
+    }, [handleWheel, scrollable])
+
     // Fonction pour obtenir le style du curseur selon la position
     const getResizeCursor = (direction: ResizeDirection): string => {
         if (!allowedResizeDirections.includes(direction)) return "default"
@@ -228,7 +257,11 @@ export function MacWindow({
             </div>
 
             {/* Window Content */}
-            <div className=" overflow-hidden bg-white" style={{ height: size.height - 24 }}>
+            <div
+                ref={contentRef}
+                className={` bg-white ${scrollable ? "overflow-auto" : "overflow-hidden"}`}
+                style={{height: size.height - 24}}
+            >
                 {children}
             </div>
             {/* Resize Handles - only shown if resizable */}

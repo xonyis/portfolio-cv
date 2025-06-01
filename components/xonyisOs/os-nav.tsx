@@ -38,6 +38,8 @@ const menuItems = [
             { label: "Paint", action: "paint", icon: <Palette className="w-4 h-4 mr-2" /> },
             { label: "TextEdit", action: "textedit", icon: <Edit className="w-4 h-4 mr-2" /> },
             { label: "Calculatrice", action: "calculator", icon: <Calculator className="w-4 h-4 mr-2" /> },
+            { label: "Snake", action: "snake", icon: <Calculator className="w-4 h-4 mr-2" /> },
+
             "-",
             { label: "Finder", action: "finder", icon: <Apple className="w-4 h-4 mr-2" /> },
         ],
