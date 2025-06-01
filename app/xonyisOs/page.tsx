@@ -14,7 +14,7 @@ export default function XonyisOs() {
     }
 
     return (
-        <div ref={containerRef} className="min-h-screen bg-zinc-900  overflow-hidden">
+        <div ref={containerRef} className="min-h-screen bg-zinc-900 overflow-hidden">
             <OsNavbar onOpenApp={handleOpenApp} />
             {/* Desktop */}
             <Desktop openAppTrigger={openApp} />

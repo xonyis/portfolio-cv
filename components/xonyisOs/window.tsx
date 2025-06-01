@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { X, Minus, Square } from "lucide-react"
+import {useEffect, useState} from "react";
 
 interface MacWindowProps {
     title: string
@@ -28,7 +29,24 @@ export function MacWindow({
     const [isDragging, setIsDragging] = React.useState(false)
     const [dragOffset, setDragOffset] = React.useState({ x: 0, y: 0 })
     const windowRef = React.useRef<HTMLDivElement>(null)
+    const [time, setTime] = useState(new Date())
 
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setTime(new Date())
+        }, 1000)
+
+        return () => clearInterval(timer)
+    }, [])
+
+    const formatTime = (date: Date) => {
+        return date.toLocaleTimeString("fr-FR", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: false,
+        })
+    }
     const handleMouseDown = (e: React.MouseEvent) => {
         if (onFocus) onFocus()
 
@@ -116,7 +134,7 @@ export function MacWindow({
             </div>
 
             {/* Window Content */}
-            <div className="p-3 overflow-auto bg-white" style={{ height: height - 24 }}>
+            <div className="p-1 overflow-auto bg-white" style={{ height: height - 24 }}>
                 {children}
             </div>
         </div>

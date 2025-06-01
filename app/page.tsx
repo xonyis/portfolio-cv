@@ -161,7 +161,7 @@ export default function Portfolio() {
                         className="rounded-full bg-black/30 backdrop-blur-sm border border-white/10  transition-all duration-300 hover:bg-black/50 hover:border-white/30 hover:scale-105 hover:shadow-lg"
                         asChild
                     >
-                      <Link href="/xonyisOs">📺</Link>
+                      <Link href="/xonyisOs" className="text-white font-pixelify">📺 XonyisOs</Link>
                     </Button>
                   </div>
                 </div>

@@ -10,6 +10,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import Image from "next/image"
+import {useEffect, useState} from "react";
 
 interface OsNavbarProps {
     onOpenApp?: (appName: string) => void
@@ -58,6 +59,25 @@ const menuItems = [
 export default function OsNavbar({ onOpenApp }: OsNavbarProps) {
     const [activeMenu, setActiveMenu] = React.useState<string | null>(null)
 
+
+    const [time, setTime] = useState(new Date())
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setTime(new Date())
+        }, 1000)
+
+        return () => clearInterval(timer)
+    }, [])
+
+    const formatTime = (date: Date) => {
+        return date.toLocaleTimeString("fr-FR", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: false,
+        })
+    }
     const handleMenuClick = (item: any) => {
         if (typeof item === "object" && item.action && onOpenApp) {
             onOpenApp(item.action)
@@ -128,10 +148,7 @@ export default function OsNavbar({ onOpenApp }: OsNavbarProps) {
                 {/* Right side - Clock */}
                 <div className="ml-auto">
           <span className="text-lg font-medium text-black font-pixelify">
-            {new Date().toLocaleTimeString("fr-FR", {
-                hour: "2-digit",
-                minute: "2-digit",
-            })}
+            {formatTime(time)}
           </span>
                 </div>
             </div>

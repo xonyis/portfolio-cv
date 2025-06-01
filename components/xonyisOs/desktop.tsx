@@ -5,7 +5,8 @@ import { MacWindow } from "@/components/xonyisOs/window"
 import { Folder, FileText, Palette, LogOut  } from "lucide-react"
 import Image from "next/image";
 import Link from "next/link";
-
+import {useEffect, useState} from "react";
+import Calculator from "@/components/xonyisOs/calculator"
 interface WindowData {
     id: string
     title: string
@@ -20,77 +21,26 @@ interface DesktopProps {
 }
 
 export function Desktop({ openAppTrigger }: DesktopProps) {
-    const [windows, setWindows] = React.useState<WindowData[]>([
-        {
-            id: "finder",
-            title: "Finder",
-            position: { x: 50, y: 50 },
-            width: 450,
-            height: 350,
-            content: (
-                <div className="space-y-3">
-                    <div className="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
-                        <Folder className="w-4 h-4 text-blue-600" />
-                        <span className="text-sm">Applications</span>
-                    </div>
-                    <div className="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
-                        <Folder className="w-4 h-4 text-blue-600" />
-                        <span className="text-sm">Documents</span>
-                    </div>
-                    <div className="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
-                        <Folder className="w-4 h-4 text-blue-600" />
-                        <span className="text-sm">Bureau</span>
-                    </div>
-                    <div className="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
-                        <FileText className="w-4 h-4 text-gray-600" />
-                        <span className="text-sm">README.txt</span>
-                    </div>
-                </div>
-            ),
-        },
-        {
-            id: "textedit",
-            title: "TextEdit",
-            position: { x: 200, y: 120 },
-            width: 400,
-            height: 300,
-            content: (
-                <div className="h-full">
-          <textarea
-              className="w-full h-full border-none outline-none resize-none text-sm p-2"
-              placeholder="Tapez votre texte ici..."
-              defaultValue="Bienvenue dans TextEdit !\n\nCette fenêtre reproduit l'interface classique des applications Mac avec une barre de titre draggable et des boutons de contrôle."
-          />
-                </div>
-            ),
-        },
-        {
-            id: "calculator",
-            title: "Calculatrice",
-            position: { x: 350, y: 200 },
-            width: 200,
-            height: 250,
-            content: (
-                <div className="grid grid-cols-4 gap-1 h-full">
-                    <div className="col-span-4 bg-gray-100 border border-gray-300 p-2 text-right text-lg font-mono">0</div>
-                    {["C", "±", "%", "÷", "7", "8", "9", "×", "4", "5", "6", "-", "1", "2", "3", "+", "0", "0", ".", "="].map(
-                        (btn, i) => (
-                            <button
-                                key={i}
-                                className={`border border-gray-300 hover:bg-gray-100 text-sm font-medium ${
-                                    btn === "0" && i === 16 ? "col-span-2" : ""
-                                }`}
-                            >
-                                {btn}
-                            </button>
-                        ),
-                    )}
-                </div>
-            ),
-        },
-    ])
+    // État vide au démarrage - plus de fenêtres par défaut
+    const [windows, setWindows] = React.useState<WindowData[]>([])
+    const [activeWindow, setActiveWindow] = React.useState<string>("")
+    const [time, setTime] = useState(new Date())
 
-    const [activeWindow, setActiveWindow] = React.useState<string>("finder")
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setTime(new Date())
+        }, 1000)
+
+        return () => clearInterval(timer)
+    }, [])
+
+    const formatTime = (date: Date) => {
+        return date.toLocaleTimeString("fr-FR", {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+        })
+    }
 
     // Applications disponibles
     const availableApps = {
@@ -158,31 +108,17 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
           <textarea
               className="w-full h-full border-none outline-none resize-none text-sm p-2"
               placeholder="Tapez votre texte ici..."
-              defaultValue="Bienvenue dans TextEdit !\n\nCette fenêtre reproduit l'interface classique des applications Mac."
+              defaultValue="Bienvenue dans TextEdit !"
           />
                 </div>
             ),
         },
         calculator: {
-            title: "Calculatrice",
-            width: 200,
-            height: 250,
+            title: "Calculator",
+            width: 250,
+            height: 400,
             content: (
-                <div className="grid grid-cols-4 gap-1 h-full">
-                    <div className="col-span-4 bg-gray-100 border border-gray-300 p-2 text-right text-lg font-mono">0</div>
-                    {["C", "±", "%", "÷", "7", "8", "9", "×", "4", "5", "6", "-", "1", "2", "3", "+", "0", "0", ".", "="].map(
-                        (btn, i) => (
-                            <button
-                                key={i}
-                                className={`border border-gray-300 hover:bg-gray-100 text-sm font-medium ${
-                                    btn === "0" && i === 16 ? "col-span-2" : ""
-                                }`}
-                            >
-                                {btn}
-                            </button>
-                        ),
-                    )}
-                </div>
+                <Calculator/>
             ),
         },
         infos: {
@@ -192,10 +128,7 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
             content: (
                 <div className="h-full flex flex-col ">
                     <span className="text-lg font-medium text-black font-pixelify text-center mb-3">
-                        {new Date().toLocaleTimeString("fr-FR", {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                        })}
+                        {formatTime(time)}
                     </span>
                     <div className=" flex justify-center ">
                         <div>
@@ -249,7 +182,7 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                     {/* Bouton de déconnexion */}
                     <div className="p-2 flex text-center">
                         <Link href="/" className="mx-auto text-red-500 hover:text-red-600 text-white  rounded-lg transition-colors duration-200 text-sm font-medium">
-                            <span><LogOut className="w-5 h-5"></LogOut> </span>
+                            <span><LogOut className="w-5 h-5 text-red-600"></LogOut> </span>
                         </Link>
                     </div>
                 </div>
@@ -332,10 +265,46 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                     className="flex flex-col items-center cursor-pointer hover:bg-white/20 p-2 rounded"
                     onDoubleClick={() => openWindow("paint")}
                 >
-                    <Palette className="w-8 h-8 text-white mb-1" />
+                    <Image
+                        src="/Mountains_Lightblue.png"
+                        alt=""
+                        width={48} // ajuste à la taille que tu veux
+                        height={48}
+                        className=" object-contain"
+                    />
                     <span className="text-xs text-white">Paint</span>
                 </div>
+
+                <div
+                    className="flex flex-col items-center cursor-pointer hover:bg-white/20 p-2 rounded"
+                    onDoubleClick={() => openWindow("textedit")}
+                >
+                    <Image
+                        src="/Writing_Lightgreen.png"
+                        alt=""
+                        width={48} // ajuste à la taille que tu veux
+                        height={48}
+                        className=" object-contain"
+                    />
+                    <span className="text-xs text-white">Text Edit</span>
+                </div>
+
+                <div
+                    className="flex flex-col items-center cursor-pointer hover:bg-white/20 p-2 rounded"
+                    onDoubleClick={() => openWindow("calculator")}
+                >
+                    <Image
+                        src="/Calculator_Black.png"
+                        alt=""
+                        width={48} // ajuste à la taille que tu veux
+                        height={48}
+                        className=" object-contain"
+                    />
+                    <span className="text-xs text-white">Calculator</span>
+                </div>
+
             </div>
+
 
             {/* Windows */}
             {windows.map((window) => (
