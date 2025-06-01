@@ -16,11 +16,13 @@ import { SkillBar } from "@/components/skill-bar"
 import { ProjectCard } from "@/components/project-card"
 import { FloatingNav } from "@/components/floating-nav"
 import { GlowingBlob } from "@/components/glowing-blob"
+import { Switch } from "@/components/ui/switch"
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("home")
   const { scrollYProgress } = useScroll()
   const containerRef = useRef<HTMLDivElement>(null)
+  const [isDarkMode, setIsDarkMode] = useState(true)
 
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0.95])
   const y = useTransform(scrollYProgress, [0, 0.2], [0, -10])
@@ -72,15 +74,28 @@ export default function Portfolio() {
         <FloatingNav navItems={navItems} activeSection={activeSection} />
 
         {/* Decorative Elements */}
-        <GlowingBlob className="fixed top-[20%] left-[10%] opacity-20 blur-3xl" color="purple" size="lg" followMouse={true} />
-        <GlowingBlob className="fixed top-[60%] right-[15%] opacity-20 blur-3xl" color="blue" size="xl" followMouse={true} />
+        <GlowingBlob
+            className="fixed top-[20%] left-[10%] opacity-20 blur-3xl"
+            color="purple"
+            size="lg"
+            followMouse={true}
+        />
+        <GlowingBlob
+            className="fixed top-[60%] right-[15%] opacity-20 blur-3xl"
+            color="blue"
+            size="xl"
+            followMouse={true}
+        />
 
         {/* Hero Section */}
         <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
           <motion.div style={{ opacity, y }} className="absolute inset-0 z-0">
-
-            <GlowingBlob className="fixed top-[-45%] right-[-5%] opacity-40 blur-3xl" color="darkPurple" size="xxl" followMouse={false} />
-
+            <GlowingBlob
+                className="fixed top-[-45%] right-[-5%] opacity-40 blur-3xl"
+                color="darkPurple"
+                size="xxl"
+                followMouse={false}
+            />
           </motion.div>
 
           <motion.div
@@ -118,34 +133,46 @@ export default function Portfolio() {
               <p className="text-xl md:text-2xl text-gray-300 mb-8">
                 <span className="font-mono">Développeur Web Full Stack</span>
               </p>
-
-              <div className="flex gap-4 justify-center">
-                <Button
-                    variant="outline"
-                    size="lg"
-                    className="rounded-full border-purple-500/50 bg-black/50 backdrop-blur-sm hover:bg-purple-950/30 transition-all duration-300"
-                    asChild
-                >
-                  <Link href="#contact">
-                    <Mail className="mr-2 h-4 w-4" />
-                    Contact
-                  </Link>
-                </Button>
-                <Button
-                    size="lg"
-                    className="rounded-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all duration-300"
-                    asChild
-                >
-                  <Link href="#projects">Voir mes projets</Link>
-                </Button>
+              <div className="flex flex-col gap-4 justify-center">
+                <div className="flex gap-4 justify-center">
+                  <Button
+                      variant="outline"
+                      size="lg"
+                      className="rounded-full border-purple-500/50 bg-black/50 backdrop-blur-sm hover:bg-purple-950/30 transition-all duration-300"
+                      asChild
+                  >
+                    <Link href="#contact">
+                      <Mail className="mr-2 h-4 w-4" />
+                      Contact
+                    </Link>
+                  </Button>
+                  <Button
+                      size="lg"
+                      className="rounded-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all duration-300"
+                      asChild
+                  >
+                    <Link href="#projects">Voir mes projets</Link>
+                  </Button>
+                </div>
+                <div className="flex  justify-center   mt-4  ">
+                  <div className="w-150 flex gap-3 items-center  p-4">
+                    <Button
+                        size="lg"
+                        className="rounded-full bg-black/30 backdrop-blur-sm border border-white/10  transition-all duration-300 hover:bg-black/50 hover:border-white/30 hover:scale-105 hover:shadow-lg"
+                        asChild
+                    >
+                      <Link href="/portfolio-cv/components/xonyisOs">📺</Link>
+                    </Button>
+                  </div>
+                </div>
               </div>
             </motion.div>
           </motion.div>
 
           <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.7 }}
-              transition={{ delay: 1.5, duration: 1.5, repeat: Number.POSITIVE_INFINITY, repeatType: "reverse" }}
+              initial={{opacity: 0}}
+              animate={{opacity: 0.7}}
+              transition={{delay: 1.5, duration: 1.5, repeat: Number.POSITIVE_INFINITY, repeatType: "reverse"}}
               className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
           >
             <ChevronDown className="h-8 w-8 text-white/70" />
@@ -170,7 +197,9 @@ export default function Portfolio() {
                 <div className="absolute inset-0 bg-gradient-to-tr from-purple-900/10 to-blue-900/10" />
                 <div className="relative z-10">
                   <p className="text-gray-300 leading-relaxed mb-6">
-                    Développeur web passionné avec depuis plus de 7 ans dans le développent d'applications web. Spécialisé en Vue.Js, Next.js et Node.js, je m'efforce de créer des expériences utilisateur exceptionnelles et les plus interactives que possibles.
+                    Développeur web passionné avec depuis plus de 7 ans dans le développent d'applications web. Spécialisé
+                    en Vue.Js, Next.js et Node.js, je m'efforce de créer des expériences utilisateur exceptionnelles et
+                    les plus interactives que possibles.
                   </p>
                   <p className="text-gray-300 leading-relaxed">
                     Toujours à l'affût des nouvelles technologies et méthodologies pour améliorer mes compétences et la
@@ -219,12 +248,15 @@ export default function Portfolio() {
                       Tailwind
                     </Badge>
                   </div>
-                  
                 </div>
-                <Image src="/memojii-sticker.png" alt="" width={250} // ajuste à la taille que tu veux
-                height={250}
-                className="rounded-full object-contain" />
-                </Card>
+                <Image
+                    src="/memojii-sticker.png"
+                    alt=""
+                    width={250} // ajuste à la taille que tu veux
+                    height={250}
+                    className="rounded-full object-contain"
+                />
+              </Card>
             </motion.div>
           </div>
         </section>
@@ -235,7 +267,6 @@ export default function Portfolio() {
             <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.6 }}
                 className="text-3xl md:text-4xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500"
             >
@@ -275,8 +306,6 @@ export default function Portfolio() {
                     align="right"
                     delay={0.3}
                 />
-
-
               </div>
             </div>
           </div>
@@ -309,13 +338,13 @@ export default function Portfolio() {
                     description="J’ai participé à la refonte complète d’une application interne destinée au suivi des performances des fournisseurs. Ce projet avait pour objectif de moderniser l’interface et d’optimiser le traitement des flux de données. L’application permettait de récupérer et d'analyser des flux fournisseurs, puis de générer automatiquement des KPI (indicateurs de performance) sous format texte et Excel, avant de les transmettre via la plateforme Odrive."
                     align="right"
                     delay={0.1}
-                    badges={["SpringBoot","Java", "Vue.js", "JavaScript", "BootStrap"]}
+                    badges={["SpringBoot", "Java", "Vue.js", "JavaScript", "BootStrap"]}
                     badgeColors={[
                       "bg-emerald-950/30 text-emerald-300 border-emerald-800/50",
                       "bg-orange-950/30 text-orange-300 border-orange-800/50",
                       "bg-green-950/30 text-green-300 border-green-800/50",
                       "bg-yellow-950/30 text-yellow-300 border-yellow-500/50",
-                      "bg-violet-950/30 text-violet-300 border-violet-800/50"
+                      "bg-violet-950/30 text-violet-300 border-violet-800/50",
                     ]}
                 />
 
@@ -332,7 +361,7 @@ export default function Portfolio() {
                       "bg-rose-950/30 text-rose-300 border-rose-500/50",
                       "bg-teal-950/30 text-teal-300 border-teal-800/50",
                       "bg-fuchsia-950/30 text-fuchsia-300 border-fuchsia-800/50",
-                      "bg-cyan-950/30 text-cyan-300 border-cyan-800/50"
+                      "bg-cyan-950/30 text-cyan-300 border-cyan-800/50",
                     ]}
                 />
 
@@ -349,7 +378,7 @@ export default function Portfolio() {
                       "bg-yellow-950/30 text-yellow-300 border-yellow-500/50",
                       "bg-teal-950/30 text-teal-300 border-teal-800/50",
                       "bg-fuchsia-950/30 text-fuchsia-300 border-fuchsia-800/50",
-                      "bg-violet-950/30 text-violet-300 border-violet-800/50"
+                      "bg-violet-950/30 text-violet-300 border-violet-800/50",
                     ]}
                 />
               </div>
@@ -487,7 +516,7 @@ export default function Portfolio() {
               <ProjectCard
                   title="Plateforme Éducative MNS QUIZZ"
                   description="Projet de fin de troisième années du Bachelor Développeur Full Stack."
-                  tags={["Vue.js", "SpringBoot", "Express", "SpringBoot", "JWT",]}
+                  tags={["Vue.js", "SpringBoot", "Express", "SpringBoot", "JWT"]}
                   image="/project4.png"
                   delay={0.4}
               />
@@ -589,7 +618,7 @@ function TimelineItem({
                         align = "left",
                         delay = 0,
                         badges,
-                        badgeColors
+                        badgeColors,
                       }: {
   title: string
   company: string
@@ -625,19 +654,19 @@ function TimelineItem({
               </div>
               <p className="text-gray-300 text-sm/6">{description}</p>
               {/* Badges */}
-            {badges && badges.length > 0 && (
-              <div className="flex flex-wrap gap-2 mt-3">
-                {badges.map((badge, index) => (
-                  <Badge
-                    key={index}
-                    variant="outline"
-                    className={badgeColors?.[index] || "bg-gray-800/50 text-gray-300 border-gray-700"}
-                  >
-                    {badge}
-                  </Badge>
-                ))}
-              </div>
-            )}
+              {badges && badges.length > 0 && (
+                  <div className="flex flex-wrap gap-2 mt-3">
+                    {badges.map((badge, index) => (
+                        <Badge
+                            key={index}
+                            variant="outline"
+                            className={badgeColors?.[index] || "bg-gray-800/50 text-gray-300 border-gray-700"}
+                        >
+                          {badge}
+                        </Badge>
+                    ))}
+                  </div>
+              )}
             </div>
           </Card>
         </div>

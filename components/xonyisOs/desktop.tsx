@@ -1,0 +1,301 @@
+"use client"
+
+import * as React from "react"
+import { MacWindow } from "@/components/xonyisOs/window"
+import { Folder, FileText, Palette, Edit } from "lucide-react"
+
+interface WindowData {
+    id: string
+    title: string
+    content: React.ReactNode
+    position: { x: number; y: number }
+    width?: number
+    height?: number
+}
+
+interface DesktopProps {
+    openAppTrigger?: string | null
+}
+
+export function Desktop({ openAppTrigger }: DesktopProps) {
+    const [windows, setWindows] = React.useState<WindowData[]>([
+        {
+            id: "finder",
+            title: "Finder",
+            position: { x: 50, y: 50 },
+            width: 450,
+            height: 350,
+            content: (
+                <div className="space-y-3">
+                    <div className="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
+                        <Folder className="w-4 h-4 text-blue-600" />
+                        <span className="text-sm">Applications</span>
+                    </div>
+                    <div className="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
+                        <Folder className="w-4 h-4 text-blue-600" />
+                        <span className="text-sm">Documents</span>
+                    </div>
+                    <div className="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
+                        <Folder className="w-4 h-4 text-blue-600" />
+                        <span className="text-sm">Bureau</span>
+                    </div>
+                    <div className="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
+                        <FileText className="w-4 h-4 text-gray-600" />
+                        <span className="text-sm">README.txt</span>
+                    </div>
+                </div>
+            ),
+        },
+        {
+            id: "textedit",
+            title: "TextEdit",
+            position: { x: 200, y: 120 },
+            width: 400,
+            height: 300,
+            content: (
+                <div className="h-full">
+          <textarea
+              className="w-full h-full border-none outline-none resize-none text-sm p-2"
+              placeholder="Tapez votre texte ici..."
+              defaultValue="Bienvenue dans TextEdit !\n\nCette fenêtre reproduit l'interface classique des applications Mac avec une barre de titre draggable et des boutons de contrôle."
+          />
+                </div>
+            ),
+        },
+        {
+            id: "calculator",
+            title: "Calculatrice",
+            position: { x: 350, y: 200 },
+            width: 200,
+            height: 250,
+            content: (
+                <div className="grid grid-cols-4 gap-1 h-full">
+                    <div className="col-span-4 bg-gray-100 border border-gray-300 p-2 text-right text-lg font-mono">0</div>
+                    {["C", "±", "%", "÷", "7", "8", "9", "×", "4", "5", "6", "-", "1", "2", "3", "+", "0", "0", ".", "="].map(
+                        (btn, i) => (
+                            <button
+                                key={i}
+                                className={`border border-gray-300 hover:bg-gray-100 text-sm font-medium ${
+                                    btn === "0" && i === 16 ? "col-span-2" : ""
+                                }`}
+                            >
+                                {btn}
+                            </button>
+                        ),
+                    )}
+                </div>
+            ),
+        },
+    ])
+
+    const [activeWindow, setActiveWindow] = React.useState<string>("finder")
+
+    // Applications disponibles
+    const availableApps = {
+        paint: {
+            title: "Paint",
+            width: 500,
+            height: 400,
+            content: (
+                <div className="h-full flex flex-col">
+                    {/* Toolbar */}
+                    <div className="flex items-center space-x-2 p-2 border-b border-gray-300 bg-gray-50">
+                        <button className="p-1 border border-gray-300 hover:bg-gray-200">
+                            <Edit className="w-4 h-4" />
+                        </button>
+                        <button className="p-1 border border-gray-300 hover:bg-gray-200">
+                            <Palette className="w-4 h-4" />
+                        </button>
+                        <div className="flex space-x-1 ml-4">
+                            {["#000", "#f00", "#0f0", "#00f", "#ff0", "#f0f", "#0ff"].map((color) => (
+                                <div
+                                    key={color}
+                                    className="w-4 h-4 border border-gray-400 cursor-pointer"
+                                    style={{ backgroundColor: color }}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                    {/* Canvas */}
+                    <div className="flex-1 bg-white border border-gray-300 m-2">
+                        <canvas
+                            width="460"
+                            height="320"
+                            className="w-full h-full cursor-crosshair"
+                            style={{ imageRendering: "pixelated" }}
+                        />
+                    </div>
+                </div>
+            ),
+        },
+        finder: {
+            title: "Finder",
+            width: 450,
+            height: 350,
+            content: (
+                <div className="space-y-3">
+                    <div className="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
+                        <Folder className="w-4 h-4 text-blue-600" />
+                        <span className="text-sm">Applications</span>
+                    </div>
+                    <div className="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
+                        <Folder className="w-4 h-4 text-blue-600" />
+                        <span className="text-sm">Documents</span>
+                    </div>
+                    <div className="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
+                        <Folder className="w-4 h-4 text-blue-600" />
+                        <span className="text-sm">Bureau</span>
+                    </div>
+                    <div className="flex items-center space-x-2 p-2 hover:bg-gray-100 cursor-pointer">
+                        <FileText className="w-4 h-4 text-gray-600" />
+                        <span className="text-sm">README.txt</span>
+                    </div>
+                </div>
+            ),
+        },
+        textedit: {
+            title: "TextEdit",
+            width: 400,
+            height: 300,
+            content: (
+                <div className="h-full">
+          <textarea
+              className="w-full h-full border-none outline-none resize-none text-sm p-2"
+              placeholder="Tapez votre texte ici..."
+              defaultValue="Bienvenue dans TextEdit !\n\nCette fenêtre reproduit l'interface classique des applications Mac."
+          />
+                </div>
+            ),
+        },
+        calculator: {
+            title: "Calculatrice",
+            width: 200,
+            height: 250,
+            content: (
+                <div className="grid grid-cols-4 gap-1 h-full">
+                    <div className="col-span-4 bg-gray-100 border border-gray-300 p-2 text-right text-lg font-mono">0</div>
+                    {["C", "±", "%", "÷", "7", "8", "9", "×", "4", "5", "6", "-", "1", "2", "3", "+", "0", "0", ".", "="].map(
+                        (btn, i) => (
+                            <button
+                                key={i}
+                                className={`border border-gray-300 hover:bg-gray-100 text-sm font-medium ${
+                                    btn === "0" && i === 16 ? "col-span-2" : ""
+                                }`}
+                            >
+                                {btn}
+                            </button>
+                        ),
+                    )}
+                </div>
+            ),
+        },
+        infos: {
+            title: "Infos",
+            width: 500,
+            height: 400,
+            content: (
+                <div className="h-full flex flex-col">
+                   indof
+                </div>
+            ),
+        }
+    }
+
+    // Écouter le trigger d'ouverture d'app
+    React.useEffect(() => {
+        if (openAppTrigger && availableApps[openAppTrigger as keyof typeof availableApps]) {
+            openWindow(openAppTrigger)
+        }
+    }, [openAppTrigger])
+
+    const closeWindow = (id: string) => {
+        setWindows(windows.filter((w) => w.id !== id))
+    }
+
+    const focusWindow = (id: string) => {
+        setActiveWindow(id)
+    }
+
+    const openWindow = (type: string) => {
+        const app = availableApps[type as keyof typeof availableApps]
+        if (!app) return
+
+        // Vérifier si l'app est déjà ouverte
+        const existingWindow = windows.find((w) => w.id.startsWith(type))
+        if (existingWindow) {
+            focusWindow(existingWindow.id)
+            return
+        }
+
+        const newWindow: WindowData = {
+            id: `${type}-${Date.now()}`,
+            title: app.title,
+            position: { x: Math.random() * 200 + 100, y: Math.random() * 100 + 100 },
+            width: app.width,
+            height: app.height,
+            content: app.content,
+        }
+
+        setWindows([...windows, newWindow])
+        setActiveWindow(newWindow.id)
+    }
+
+    // Désactiver le scroll sur le desktop
+    React.useEffect(() => {
+        const preventDefault = (e: WheelEvent) => {
+            e.preventDefault()
+        }
+
+        const desktopElement = document.getElementById("desktop")
+        if (desktopElement) {
+            desktopElement.addEventListener("wheel", preventDefault, { passive: false })
+        }
+
+        // Désactiver aussi le scroll global
+        document.body.style.overflow = "hidden"
+
+        return () => {
+            if (desktopElement) {
+                desktopElement.removeEventListener("wheel", preventDefault)
+            }
+            document.body.style.overflow = "auto"
+        }
+    }, [])
+
+    return (
+        <div
+            id="desktop"
+            className="relative w-full h-screen overflow-hidden"
+            style={{
+                height: "calc(100vh - 28px)",
+            }}
+        >
+            {/* Desktop Icons */}
+            <div className="absolute top-4 left-4 space-y-4 font-pixelify">
+                <div
+                    className="flex flex-col items-center cursor-pointer hover:bg-white/20 p-2 rounded"
+                    onDoubleClick={() => openWindow("paint")}
+                >
+                    <Palette className="w-8 h-8 text-white mb-1" />
+                    <span className="text-xs text-white">Paint</span>
+                </div>
+            </div>
+
+            {/* Windows */}
+            {windows.map((window) => (
+                <MacWindow
+                    key={window.id}
+                    title={window.title}
+                    initialPosition={window.position}
+                    onClose={() => closeWindow(window.id)}
+                    isActive={activeWindow === window.id}
+                    onFocus={() => focusWindow(window.id)}
+                    width={window.width}
+                    height={window.height}
+                >
+                    {window.content}
+                </MacWindow>
+            ))}
+        </div>
+    )
+}
