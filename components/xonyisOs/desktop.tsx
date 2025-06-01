@@ -313,6 +313,20 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                     <span className="text-xs text-white">Calculator</span>
                 </div>
 
+                <div
+                    className="flex flex-col items-center cursor-pointer hover:bg-white/20 p-2 rounded"
+                    onDoubleClick={() => openWindow("snake")}
+                >
+                    <Image
+                        src="/snake.png"
+                        alt=""
+                        width={48} // ajuste à la taille que tu veux
+                        height={48}
+                        className=" object-contain"
+                    />
+                    <span className="text-xs text-white">Snake</span>
+                </div>
+
             </div>
 
 
