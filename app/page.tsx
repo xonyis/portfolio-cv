@@ -462,7 +462,7 @@ export default function Portfolio() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <ProjectCard
                   title="Classio"
-                  description="Plateforme de vente en ligne avec panier d'achat, paiement sécurisé et gestion des commandes."
+                  description="Application permettant aux élèves, parents et professeurs de rester connectés. Elle regroupe tous les éléments clés du parcours scolaire : planning des cours, résultats, assignments, suivi des présences, communication et progression pédagogique."
                   tags={["Next.Js", "Node.js", "Postgresql", "Prisma", "Tailwind"]}
                   image="/ClassioCapture.png"
                   delay={0.1}
