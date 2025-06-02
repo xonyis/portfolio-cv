@@ -184,11 +184,11 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                     <div>
                         <p className="text-xs text-neutral-500 mb-1">Technologies utilisées pour XonyisOs:</p>
                         <div className="flex flex-col gap-1">
-                          <div className="flex flex-wrap gap-2">
+                          <div className="flex flex-wrap justify-center gap-2">
                             <span className="bg-blue-200 text-blue-800 px-2 py-1 rounded text-xs font-mono">Next.js</span>
                             <span className="bg-sky-200 text-sky-800 px-2 py-1 rounded text-xs font-mono">TailwindCSS</span>
                           </div>
-                          <div className="flex flex-wrap gap-2">
+                          <div className="flex flex-wrap justify-center gap-2">
                             <span className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-mono">Socket.io</span>
                             <span className="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-mono">shadcn/ui</span>
                           </div>
@@ -200,8 +200,8 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
 
                     {/* Bouton de déconnexion */}
                     <div className="p-2 flex text-center mt-3 w-48 mx-auto">
-                        <button
-                            onClick={() => window.location.reload()}
+                        <Link href="/"
+                            
                             className="mx-auto text-red-500 hover:text-red-600 text-white rounded-lg transition-colors duration-200 text-sm font-medium"
                         >
                             <Image
@@ -211,7 +211,7 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                                 height={48}
                                 className="object-contain"
                             />
-                        </button>
+                        </Link>
                         <button
                             onClick={() => window.location.reload()}
                             className="mx-auto text-red-500 hover:text-red-600 text-white rounded-lg transition-colors duration-200 text-sm font-medium"
@@ -318,7 +318,7 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                     onDoubleClick={() => openWindow("infos")}
                 >
                     <Image
-                        src="/Chip_Gray.png"
+                        src="/Chip_Icon.png"
                         alt=""
                         width={48} // ajuste à la taille que tu veux
                         height={48}
@@ -346,8 +346,8 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                     <Image
                         src="/paintIcon.png"
                         alt=""
-                        width={48} // ajuste à la taille que tu veux
-                        height={48}
+                        width={55} // ajuste à la taille que tu veux
+                        height={55}
                         className=" object-contain"
                     />
                     <span className="text-xs text-white">Paint</span>
@@ -392,6 +392,19 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                         className=" object-contain"
                     />
                     <span className="text-xs text-white">Snake</span>
+                </div>
+                <div
+                    className="flex flex-col items-center cursor-pointer hover:bg-white/20 p-2 rounded"
+                    onDoubleClick={() => openWindow("snake")}
+                >
+                    <Image
+                        src="/Chat_Icon.png"
+                        alt=""
+                        width={55} // ajuste à la taille que tu veux
+                        height={55}
+                        className=" object-contain"
+                    />
+                    <span className="text-xs text-white">Chatioo</span>
                 </div>
             </div>
 
