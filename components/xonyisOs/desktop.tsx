@@ -55,7 +55,9 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
         paint: {
             title: "Paint",
             width: 400,
+            minWidth: 400,
             height: 400,
+            minHeight: 400,
             resizable: true,
             scrollable: true,
             content: (
@@ -108,9 +110,9 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
         calculator: {
             title: "Calculator",
             width: 300,
-            minWidth: 250,
+            minWidth: 300,
             height: 492,
-            minHeight: 300,
+            minHeight: 492,
             resizable: false,
             scrollable: false,
             content: (
@@ -120,9 +122,9 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
         snake: {
             title: "Snake",
             width: 325,
-            minWidth: 300,
+            minWidth: 325,
             height: 470,
-            minHeight: 350,
+            minHeight: 470,
             resizable: false,
             scrollable: false,
             content: (
