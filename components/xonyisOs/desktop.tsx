@@ -327,17 +327,20 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
         >
             {/* Desktop Icons */}
             <div
-                className="absolute top-0 left-4 grid gap-x-6 gap-y-2 mb-1 font-pixelify"
+                className="absolute top-0 left-4 grid gap-x-6 gap-y-2 my-1 font-pixelify"
                 style={{
+                    display: "grid",
                     gridAutoFlow: "column",
-                    gridTemplateRows: "repeat(7, minmax(0, 1fr))", // 8 lignes max par colonne
+                    gridTemplateRows: "repeat(auto-fit, minmax(90px, 80px))", // Hauteur min 80px, s'adapte
+                    gridAutoRows: "minmax(80px, 1fr)", // Hauteur min 80px
                     height: "calc(100vh - 40px)",
-                    overflowY: "hidden",
+                    maxHeight: "calc(100vh - 100px)",
+                    overflowY: "auto",
                     overflowX: "auto"
                 }}
             >
                 <div
-                    className="flex flex-col items-center cursor-pointer hover:bg-white/20 p-2 rounded"
+                    className="flex flex-col justify-center items-center cursor-pointer hover:bg-white/20 p-2 rounded "
                     onDoubleClick={() => openWindow("infos")}
                 >
                     <Image
@@ -350,7 +353,7 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                     <span className="text-xs text-white w-full">Infos Système</span>
                 </div>
                 <div
-                    className="flex flex-col items-center cursor-pointer hover:bg-white/20 p-2 rounded"
+                    className="flex flex-col justify-center items-center cursor-pointer hover:bg-white/20 p-2 rounded"
                     onDoubleClick={() => openWindow("finder")}
                 >
                     <Image
@@ -363,7 +366,7 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                     <span className="text-xs text-white">Finder</span>
                 </div>
                 <div
-                    className="flex flex-col items-center cursor-pointer hover:bg-white/20 p-2 rounded"
+                    className="flex flex-col justify-center items-center cursor-pointer hover:bg-white/20 p-2 rounded"
                     onDoubleClick={() => openWindow("paint")}
                 >
                     <Image
@@ -377,7 +380,7 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                 </div>
 
                 <div
-                    className="flex flex-col items-center cursor-pointer hover:bg-white/20 p-2 rounded"
+                    className="flex flex-col justify-center items-center cursor-pointer hover:bg-white/20 p-2 rounded"
                     onDoubleClick={() => openWindow("textedit")}
                 >
                     <Image
@@ -391,7 +394,7 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                 </div>
 
                 <div
-                    className="flex flex-col items-center cursor-pointer hover:bg-white/20 p-2 rounded"
+                    className="flex flex-col justify-center items-center cursor-pointer hover:bg-white/20 p-2 rounded"
                     onDoubleClick={() => openWindow("calculator")}
                 >
                     <Image
@@ -404,7 +407,7 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                     <span className="text-xs text-white">Calculator</span>
                 </div>
                 <div
-                    className="flex flex-col items-center cursor-pointer hover:bg-white/20 p-2 rounded"
+                    className="flex flex-col justify-center items-center cursor-pointer hover:bg-white/20 p-2 rounded"
                     onDoubleClick={() => openWindow("snake")}
                 >
                     <Image
@@ -417,7 +420,7 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                     <span className="text-xs text-white">Snake</span>
                 </div>
                 <div
-                    className="flex flex-col items-center cursor-pointer hover:bg-white/20 p-2 rounded"
+                    className="flex flex-col justify-center items-center cursor-pointer hover:bg-white/20 p-2 rounded"
                     onDoubleClick={() => openWindow("chatioo")}
                 >
                     <Image
