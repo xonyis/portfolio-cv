@@ -16,6 +16,8 @@ interface MacWindowProps {
     height?: number
     resizable?: boolean
     scrollable?: boolean
+    minWidth?: number
+    minHeight?: number
 }
 
 type ResizeDirection =
@@ -38,6 +40,8 @@ export function MacWindow({
                               onFocus,
                               width = 400,
                               height = 300,
+                              minWidth = 200,
+                              minHeight = 150,
                               resizable = true,
                               scrollable = false,
                           }: MacWindowProps) {
@@ -52,9 +56,6 @@ export function MacWindow({
     const contentRef = React.useRef<HTMLDivElement>(null)
 
 
-    // Constantes pour les tailles minimales
-    const MIN_WIDTH = 200
-    const MIN_HEIGHT = 150
     // Directions de redimensionnement autorisées
     const allowedResizeDirections: ResizeDirection[] = [
         "right",
@@ -153,14 +154,14 @@ export function MacWindow({
                 // Calcul des nouvelles dimensions selon la direction
                 switch (isResizing) {
                     case "right":
-                        newWidth = Math.max(MIN_WIDTH, resizeStart.width + deltaX)
+                        newWidth = Math.max(minWidth, resizeStart.width + deltaX)
                         break
                     case "bottom":
-                        newHeight = Math.max(MIN_HEIGHT, resizeStart.height + deltaY)
+                        newHeight = Math.max(minHeight, resizeStart.height + deltaY)
                         break
                     case "bottomRight":
-                        newWidth = Math.max(MIN_WIDTH, resizeStart.width + deltaX)
-                        newHeight = Math.max(MIN_HEIGHT, resizeStart.height + deltaY)
+                        newWidth = Math.max(minWidth, resizeStart.width + deltaX)
+                        newHeight = Math.max(minHeight, resizeStart.height + deltaY)
                         break
                     // Les autres cas sont désactivés
                 }

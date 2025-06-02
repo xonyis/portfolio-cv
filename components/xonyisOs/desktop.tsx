@@ -9,6 +9,8 @@ import {useEffect, useState} from "react";
 import Calculator from "@/components/xonyisOs/calculator"
 import Paint from "@/components/xonyisOs/paint"
 import SnakeGamePage from "@/components/xonyisOs/snake";
+import Chatiooo from "@/components/xonyisOs/Chattioo";
+
 interface WindowData {
     id: string
     title: string
@@ -18,6 +20,8 @@ interface WindowData {
     height?: number
     resizable?: boolean
     scrollable?: boolean
+    minWidth?: number
+    minHeight?: number
 }
 
 interface DesktopProps {
@@ -104,7 +108,9 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
         calculator: {
             title: "Calculator",
             width: 300,
+            minWidth: 250,
             height: 492,
+            minHeight: 300,
             resizable: false,
             scrollable: false,
             content: (
@@ -114,11 +120,25 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
         snake: {
             title: "Snake",
             width: 325,
+            minWidth: 300,
             height: 470,
+            minHeight: 350,
             resizable: false,
             scrollable: false,
             content: (
                 <SnakeGamePage/>
+            ),
+        },
+        chatioo: {
+            title: "Chatioo",
+            width: 475,
+            minWidth: 475,
+            height: 470,
+            minHeight: 350,
+            resizable: true,
+            scrollable: true,
+            content: (
+                <Chatiooo/>
             ),
         },
         infos: {
@@ -265,7 +285,8 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
             content: app.content,
             resizable: app.resizable !== false,
             scrollable: app.scrollable === true, // Par défaut false sauf si explicitement true
-
+            minWidth: app.minWidth,
+            minHeight: app.minHeight,
         }
 
         setWindows([...windows, newWindow])
@@ -395,7 +416,7 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                 </div>
                 <div
                     className="flex flex-col items-center cursor-pointer hover:bg-white/20 p-2 rounded"
-                    onDoubleClick={() => openWindow("snake")}
+                    onDoubleClick={() => openWindow("chatioo")}
                 >
                     <Image
                         src="/Chat_Icon.png"
@@ -421,7 +442,8 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                     height={window.height}
                     resizable={window.resizable}
                     scrollable={window.scrollable}
-
+                    minWidth={window.minWidth}
+                    minHeight={window.minHeight}
                 >
                     {window.content}
                 </MacWindow>
