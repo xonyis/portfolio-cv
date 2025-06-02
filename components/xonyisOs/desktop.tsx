@@ -304,7 +304,7 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
         >
             {/* Desktop Icons */}
             <div
-                className="absolute top-4 left-4 grid gap-x-6 gap-y-2 mb-1 font-pixelify"
+                className="absolute top-0 left-4 grid gap-x-6 gap-y-2 mb-1 font-pixelify"
                 style={{
                     gridAutoFlow: "column",
                     gridTemplateRows: "repeat(7, minmax(0, 1fr))", // 8 lignes max par colonne

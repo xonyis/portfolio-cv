@@ -136,7 +136,7 @@ export function MacWindow({
 
                 setPosition({
                     x: Math.max(0, Math.min(newX, maxX)),
-                    y: Math.max(28, Math.min(newY, maxY)), // 28px pour la barre de menu
+                    y: Math.max(1, Math.min(newY, maxY)), // 28px pour la barre de menu
                 })
             }
 
