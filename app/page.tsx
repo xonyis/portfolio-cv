@@ -499,7 +499,7 @@ export default function Portfolio() {
                     <Link href="/xonyisOs" className="text-white font-pixelify">📺 XonyisOs</Link>
                   </Button>}
                   tags={["Next.Js", "Node.js", "Tailwind"]}
-                  image="/ClassioCapture.png"
+                  image="/XonyisOsImg.png"
                   delay={0.1}
               />
               <ProjectCard

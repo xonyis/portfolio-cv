@@ -50,8 +50,8 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
     const availableApps = {
         paint: {
             title: "Paint",
-            width: 650,
-            height: 820,
+            width: 400,
+            height: 400,
             resizable: true,
             scrollable: true,
             content: (
@@ -180,17 +180,50 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                         </div>
                     </div>
 
+                    <div className="flex-1 mx-auto px-4 space-y-4 mt-3">
+                    <div>
+                        <p className="text-xs text-neutral-500 mb-1">Technologies utilisées pour XonyisOs:</p>
+                        <div className="flex flex-col gap-1">
+                          <div className="flex flex-wrap gap-2">
+                            <span className="bg-blue-200 text-blue-800 px-2 py-1 rounded text-xs font-mono">Next.js</span>
+                            <span className="bg-sky-200 text-sky-800 px-2 py-1 rounded text-xs font-mono">TailwindCSS</span>
+                          </div>
+                          <div className="flex flex-wrap gap-2">
+                            <span className="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-mono">Socket.io</span>
+                            <span className="bg-purple-100 text-purple-800 px-2 py-1 rounded text-xs font-mono">shadcn/ui</span>
+                          </div>
+                        </div>
+                    </div>
+
+                        
+                    </div>
+
                     {/* Bouton de déconnexion */}
-                    <div className="p-2 flex text-center">
-                        <Link href="/" className="mx-auto text-red-500 hover:text-red-600 text-white  rounded-lg transition-colors duration-200 text-sm font-medium">
+                    <div className="p-2 flex text-center mt-3 w-48 mx-auto">
+                        <button
+                            onClick={() => window.location.reload()}
+                            className="mx-auto text-red-500 hover:text-red-600 text-white rounded-lg transition-colors duration-200 text-sm font-medium"
+                        >
                             <Image
                                 src="/Power_Red.png"
                                 alt=""
-                                width={48} // ajuste à la taille que tu veux
+                                width={48}
                                 height={48}
-                                className=" object-contain"
+                                className="object-contain"
                             />
-                        </Link>
+                        </button>
+                        <button
+                            onClick={() => window.location.reload()}
+                            className="mx-auto text-red-500 hover:text-red-600 text-white rounded-lg transition-colors duration-200 text-sm font-medium"
+                        >
+                            <Image
+                                src="/Wrench_Orange.png"
+                                alt=""
+                                width={48}
+                                height={48}
+                                className="object-contain"
+                            />
+                        </button>
                     </div>
                 </div>
             ),
@@ -270,7 +303,29 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
             }}
         >
             {/* Desktop Icons */}
-            <div className="absolute top-4 left-4 space-y-4 font-pixelify">
+            <div
+                className="absolute top-4 left-4 grid gap-x-6 gap-y-2 mb-1 font-pixelify"
+                style={{
+                    gridAutoFlow: "column",
+                    gridTemplateRows: "repeat(7, minmax(0, 1fr))", // 8 lignes max par colonne
+                    height: "calc(100vh - 40px)",
+                    overflowY: "hidden",
+                    overflowX: "auto"
+                }}
+            >
+                <div
+                    className="flex flex-col items-center cursor-pointer hover:bg-white/20 p-2 rounded"
+                    onDoubleClick={() => openWindow("infos")}
+                >
+                    <Image
+                        src="/Chip_Gray.png"
+                        alt=""
+                        width={48} // ajuste à la taille que tu veux
+                        height={48}
+                        className=" object-contain"
+                    />
+                    <span className="text-xs text-white w-full">Infos Système</span>
+                </div>
                 <div
                     className="flex flex-col items-center cursor-pointer hover:bg-white/20 p-2 rounded"
                     onDoubleClick={() => openWindow("finder")}
@@ -325,7 +380,6 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                     />
                     <span className="text-xs text-white">Calculator</span>
                 </div>
-
                 <div
                     className="flex flex-col items-center cursor-pointer hover:bg-white/20 p-2 rounded"
                     onDoubleClick={() => openWindow("snake")}
@@ -339,9 +393,7 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                     />
                     <span className="text-xs text-white">Snake</span>
                 </div>
-
             </div>
-
 
             {/* Windows */}
             {windows.map((window) => (
