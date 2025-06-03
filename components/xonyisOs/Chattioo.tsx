@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react"
 import { io, Socket } from "socket.io-client"
 
-const SOCKET_URL = "http://46.202.153.153:3002"
+const protocol = 'https:'
+const SOCKET_URL = `${protocol}//vps.julianmayer.fr`;
 
 type Message = {
   user: string
@@ -32,7 +33,11 @@ export default function Chattioo() {
   // Connexion socket
   useEffect(() => {
     if (!username) return
-    socketRef.current = io(SOCKET_URL)
+    socketRef.current = io(SOCKET_URL, {
+      path: '/socket.io/',
+      transports: ['websocket', 'polling'],
+      secure: protocol === 'https:',
+    })
     socketRef.current.emit("set username", username)
     socketRef.current.on("private users", (users: string[]) => setPrivateUsers(users))
     socketRef.current.on("chat history", (data) => {
@@ -124,7 +129,7 @@ export default function Chattioo() {
           {sidebarItems.map(item => (
             <button
               key={item.id}
-              className={`w-full text-left px-4 py-2 hover:bg-blue-100 focus:outline-none ${isSidebarItemActive(item) ? "bg-blue-200 font-semibold" : ""}`}
+              className={`w-full text-left text-gray-800 px-4 py-2 hover:bg-blue-100 focus:outline-none ${isSidebarItemActive(item) ? "bg-blue-200 " : ""}`}
               onClick={() => {
                 if (item.id === "general") setActiveRoom({room: "general"})
                 else setActiveRoom({room: "julian", user: item.user})
@@ -162,10 +167,10 @@ export default function Chattioo() {
           ))}
           <div ref={messagesEndRef} />
         </div>
-        <form onSubmit={handleSend} className="flex p-2 border-t border-gray-200 bg-white rounded-b-lg">
+        <form onSubmit={handleSend} className="flex p-2 border-t text-gray-800  border-gray-200 bg-white rounded-b-lg">
           <input
             type="text"
-            className="flex-1 px-3 py-2 rounded-l-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="flex-1 px-3 py-2 rounded-l-lg border bg-white border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="Écris un message…"
             value={input}
             onChange={(e) => setInput(e.target.value)}
