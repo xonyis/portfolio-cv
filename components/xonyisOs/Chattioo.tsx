@@ -1,55 +1,118 @@
-import React, { useState, useRef, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
+import { io, Socket } from "socket.io-client"
+
+const SOCKET_URL = "http://localhost:3001"
 
 type Message = {
-  id: number
+  user: string
   text: string
-  sender: "user" | "bot"
-}
-
-type Conversation = {
-  id: number
-  name: string
-  messages: Message[]
+  room: "general" | "julian"
 }
 
 export default function Chattioo() {
-  const [conversations, setConversations] = useState<Conversation[]>([
-    {
-      id: 1,
-      name: "Support",
-      messages: [
-        { id: 1, text: "Bonjour ! Comment puis-je t'aider ?", sender: "bot" }
-      ]
-    },
-    {
-      id: 2,
-      name: "Julian",
-      messages: [
-        { id: 1, text: "Salut Julian !", sender: "bot" }
-      ]
-    }
-  ])
-  const [activeConvId, setActiveConvId] = useState(1)
+  const [username, setUsername] = useState<string>("")
   const [input, setInput] = useState("")
+  const [activeRoom, setActiveRoom] = useState<{room: "general" | "julian", user?: string}>({room: "general"})
+  const [privateUsers, setPrivateUsers] = useState<string[]>([])
+  const [privateMessages, setPrivateMessages] = useState<{[user: string]: Message[]}>({})
+  const [generalMessages, setGeneralMessages] = useState<Message[]>([])
+  const socketRef = useRef<Socket | null>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
-  const activeConv = conversations.find(c => c.id === activeConvId)!
+  // Récupère ou demande le pseudo
+  useEffect(() => {
+    let stored = localStorage.getItem("username")
+    if (!stored) {
+      stored = prompt("Choisis un pseudo !") || "Anonyme"
+      localStorage.setItem("username", stored)
+    }
+    setUsername(stored)
+  }, [])
 
-  // Scroll automatique vers le bas
+  // Connexion socket
+  useEffect(() => {
+    if (!username) return
+    socketRef.current = io(SOCKET_URL)
+    socketRef.current.emit("set username", username)
+    socketRef.current.on("private users", (users: string[]) => setPrivateUsers(users))
+    socketRef.current.on("chat history", (data) => {
+      if (data.room === "general") setGeneralMessages(data.messages)
+      else if (data.room === "julian" && data.user) {
+        setPrivateMessages(prev => ({...prev, [data.user]: data.messages}))
+      }
+    })
+    socketRef.current.on("chat message", (msg: any) => {
+      if (msg.room === "general") {
+        setGeneralMessages(prev => [...prev, msg])
+      } else if (msg.room === "julian") {
+        let key = msg.user
+        if (username === "Julian" && msg.user === "Julian" && msg.to) {
+          key = msg.to
+        } else if (username !== "Julian" && msg.user === "Julian" && msg.to === username) {
+          // L'utilisateur courant reçoit un message privé de Julian
+          key = username
+        }
+        setPrivateMessages(prev => ({
+          ...prev,
+          [key]: [...(prev[key] || []), msg]
+        }))
+      }
+    })
+    return () => {
+      socketRef.current?.disconnect()
+    }
+  }, [username])
+
+  // Scroll auto
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }, [activeConv.messages])
+  }, [generalMessages, privateMessages, activeRoom])
 
   const handleSend = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!input.trim()) return
-    setConversations(convs => convs.map(conv =>
-      conv.id === activeConvId
-        ? { ...conv, messages: [...conv.messages, { id: Date.now(), text: input, sender: "user" }] }
-        : conv
-    ))
+    if (!input.trim() || !socketRef.current) return
+    if (activeRoom.room === "general") {
+      socketRef.current.emit("chat message", { user: username, text: input, room: "general" })
+    } else if (activeRoom.room === "julian") {
+      if (username === "Julian" && !activeRoom.user) return // Empêche l'envoi sans destinataire
+      const msg: any = { user: username, text: input, room: "julian" }
+      if (username === "Julian") msg.to = activeRoom.user
+      socketRef.current.emit("chat message", msg)
+    }
     setInput("")
-    // Ici tu peux ajouter une réponse automatique ou appeler une API
+  }
+
+  // Sidebar dynamique
+  let sidebarItems: {id: string, name: string, user?: string}[] = []
+  if (username === "Julian") {
+    sidebarItems = [
+      {id: "general", name: "Général"},
+      ...privateUsers
+        .filter(u => u !== "Julian")
+        .map(u => ({id: `julian-${u}`, name: u, user: u}))
+    ]
+  } else {
+    sidebarItems = [
+      {id: "general", name: "Général"},
+      {id: "julian", name: "Julian", user: username}
+    ]
+  }
+
+  // Affichage des messages selon la room
+  let messagesToShow: Message[] = []
+  if (activeRoom.room === "general") {
+    messagesToShow = generalMessages
+  } else if (activeRoom.room === "julian") {
+    const userForPrivate = username === "Julian" ? activeRoom.user : username
+    messagesToShow = privateMessages[userForPrivate || ""] || []
+  }
+
+  // Fonction pour savoir si un item est actif
+  const isSidebarItemActive = (item: {id: string, user?: string}) => {
+    if (item.id === "general" && activeRoom.room === "general") return true
+    if (item.id.startsWith("julian-") && username === "Julian" && activeRoom.room === "julian" && activeRoom.user === item.user) return true
+    if (item.id === "julian" && username !== "Julian" && activeRoom.room === "julian") return true
+    return false
   }
 
   return (
@@ -58,52 +121,47 @@ export default function Chattioo() {
       <div className="w-40 bg-gray-200 border-r border-gray-300 flex flex-col">
         <div className="font-bold text-center py-2 bg-blue-600 text-white rounded-tl-lg">Conversations</div>
         <div className="flex-1 overflow-y-auto">
-          {conversations.map(conv => (
+          {sidebarItems.map(item => (
             <button
-              key={conv.id}
-              className={`w-full text-left px-4 py-2 hover:bg-blue-100 focus:outline-none ${activeConvId === conv.id ? "bg-blue-200 font-semibold" : ""}`}
-              onClick={() => setActiveConvId(conv.id)}
+              key={item.id}
+              className={`w-full text-left px-4 py-2 hover:bg-blue-100 focus:outline-none ${isSidebarItemActive(item) ? "bg-blue-200 font-semibold" : ""}`}
+              onClick={() => {
+                if (item.id === "general") setActiveRoom({room: "general"})
+                else setActiveRoom({room: "julian", user: item.user})
+              }}
             >
-              {conv.name}
+              {item.name}
             </button>
           ))}
         </div>
-        <button
-          className="m-2 py-1 px-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          onClick={() => {
-            const newId = Date.now()
-            setConversations([...conversations, { id: newId, name: `Conv ${newId}`, messages: [] }])
-            setActiveConvId(newId)
-          }}
-        >
-          + Nouvelle
-        </button>
       </div>
       {/* Chat */}
       <div className="flex flex-col flex-1 h-full">
-        {/* Header */}
-        <div className="bg-blue-600 text-white px-4 py-2 font-bold text-center rounded-tr-lg">{activeConv.name} 💬</div>
-        {/* Messages */}
+        <div className="bg-blue-600 text-white px-4 py-2 font-bold text-center rounded-tr-lg">
+          {username === "Julian" && activeRoom.room === "julian" && activeRoom.user ? `Julian & ${activeRoom.user}` :
+            username !== "Julian" && activeRoom.room === "julian" ? `Julian` :
+            "Général"} 💬
+        </div>
         <div className="flex-1 overflow-y-auto p-4 space-y-2">
-          {activeConv.messages.map((msg) => (
+          {messagesToShow.map((msg, i) => (
             <div
-              key={msg.id}
-              className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
+              key={i}
+              className={`flex ${msg.user === username ? "justify-end" : "justify-start"}`}
             >
               <div
                 className={`px-3 py-2 rounded-lg max-w-xs break-words ${
-                  msg.sender === "user"
+                  msg.user === username
                     ? "bg-blue-500 text-white"
                     : "bg-gray-200 text-gray-800"
                 }`}
               >
+                <span className="block text-xs font-bold mb-1">{msg.user}</span>
                 {msg.text}
               </div>
             </div>
           ))}
           <div ref={messagesEndRef} />
         </div>
-        {/* Input */}
         <form onSubmit={handleSend} className="flex p-2 border-t border-gray-200 bg-white rounded-b-lg">
           <input
             type="text"
@@ -111,10 +169,12 @@ export default function Chattioo() {
             placeholder="Écris un message…"
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            disabled={username === "Julian" && activeRoom.room === "julian" && !activeRoom.user}
           />
           <button
             type="submit"
             className="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700 transition"
+            disabled={username === "Julian" && activeRoom.room === "julian" && !activeRoom.user}
           >
             Envoyer
           </button>
