@@ -4,7 +4,11 @@ const { Server } = require('socket.io')
 
 const app = express()
 const server = http.createServer(app)
-const io = new Server(server, { cors: { origin: '*' } })
+const io = new Server(server, { cors: { origin: [
+    "http://46.202.153.153",
+    "https://julianmayer.fr", // ton portfolio
+    "http://localhost:3000" // pour le dev local
+  ], } })
 
 // Stockage en mémoire
 const generalMessages = []
@@ -65,4 +69,4 @@ io.on('connection', (socket) => {
   })
 })
 
-server.listen(3001, () => console.log('Socket.io server running'))
+server.listen(3002, () => console.log('Socket.io server running'))

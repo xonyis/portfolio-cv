@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react"
 import { io, Socket } from "socket.io-client"
 
-const SOCKET_URL = "http://localhost:3001"
+const SOCKET_URL = "http://46.202.153.153:3002"
 
 type Message = {
   user: string
