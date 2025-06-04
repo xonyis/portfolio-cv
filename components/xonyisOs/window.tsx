@@ -257,28 +257,28 @@ export function MacWindow({
             
 
             {/* Première ligne de points */}
-            <div className=" inset-0 absolute top-[4px] left-0 right-0 grid gap-1 px-2"
-              style={{ gridTemplateColumns: `repeat(${Math.max(10, Math.floor((size.width - 16) / 8))}, 1fr)` }}
+            <div className=" inset-0 absolute top-[3px] left-0 right-0 grid gap-1 px-2"
+              style={{ gridTemplateColumns: `repeat(${Math.max(10, Math.floor((size.width - 16) / 6))}, 1fr)` }}
             >
-              {[...Array(Math.max(10, Math.floor((size.width - 16) / 8)))].map((_, i) => (
+              {[...Array(Math.max(10, Math.floor((size.width - 16) / 6)))].map((_, i) => (
                 <div key={i} className="w-0.5 h-0.5 bg-black  rounded-full"></div>
               ))}
             </div>
 
             {/* Deuxième ligne de points */}
-            <div className="inset-0 absolute top-[11px] left-0 right-0 grid gap-1 px-2"
-              style={{ gridTemplateColumns: `repeat(${Math.max(10, Math.floor((size.width - 16) / 8))}, 1fr)` }}
+            <div className="inset-0 absolute top-[10px] left-0 right-0 grid gap-1 px-2"
+              style={{ gridTemplateColumns: `repeat(${Math.max(10, Math.floor((size.width - 16) / 6))}, 1fr)` }}
             >
-              {[...Array(Math.max(10, Math.floor((size.width - 16) / 8)))].map((_, i) => (
+              {[...Array(Math.max(10, Math.floor((size.width - 16) / 6)))].map((_, i) => (
                 <div key={i} className="w-0.5 h-0.5 bg-black  rounded-full"></div>
               ))}
             </div>
 
             {/* Troisième ligne de points */}
-            <div className="inset-0 absolute top-[18px] left-0 right-0 grid gap-1 px-2"
-              style={{ gridTemplateColumns: `repeat(${Math.max(10, Math.floor((size.width - 16) / 8))}, 1fr)` }}
+            <div className="inset-0 absolute top-[17px] left-0 right-0 grid gap-1 px-2"
+              style={{ gridTemplateColumns: `repeat(${Math.max(10, Math.floor((size.width - 16) / 6))}, 1fr)` }}
             >
-              {[...Array(Math.max(10, Math.floor((size.width - 16) / 8)))].map((_, i) => (
+              {[...Array(Math.max(10, Math.floor((size.width - 16) / 6)))].map((_, i) => (
                 <div key={i} className="w-0.5 h-0.5 bg-black rounded-full"></div>
               ))}
             </div>
@@ -312,11 +312,11 @@ export function MacWindow({
             </div>
 
             {/* Window Content */}
-            <div className="p-2">
+            <div className="p-2 pt-2">
             <div
                 ref={contentRef}
-                className={` bg-gray-300 ${scrollable ? "overflow-auto" : "overflow-hidden"} border-2 border-gray-400`}
-                style={{height: size.height - 45,
+                className={` bg-white ${scrollable ? "overflow-auto" : "overflow-hidden"} border-2 border-gray-400`}
+                style={{height: size.height - 47,
                     borderTopColor: "#808080",
             borderLeftColor: "#808080",
             borderRightColor: "#ffffff",
@@ -327,6 +327,7 @@ export function MacWindow({
                 {children}
                 
             </div>
+            
             </div>
             {/* Resize Handles - only shown if resizable */}
             {resizable && (

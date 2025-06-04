@@ -121,10 +121,10 @@ export default function Chattioo() {
   }
 
   return (
-    <div className="flex h-full bg-gray-100 rounded-lg shadow-lg border border-gray-300 max-w-2xl mx-auto">
+    <div className="flex h-full bg-gray-100 s shadow-lg border border-gray-300 w-full mx-auto">
       {/* Sidebar */}
       <div className="w-40 bg-gray-200 border-r border-gray-300 flex flex-col">
-        <div className="font-bold text-center py-2 bg-blue-600 text-white rounded-tl-lg">Conversations</div>
+        <div className="font-bold text-center py-2 bg-blue-600 text-white ">Conversations</div>
         <div className="flex-1 overflow-y-auto">
           {sidebarItems.map(item => (
             <button
@@ -142,7 +142,7 @@ export default function Chattioo() {
       </div>
       {/* Chat */}
       <div className="flex flex-col flex-1 h-full">
-        <div className="bg-blue-600 text-white px-4 py-2 font-bold text-center rounded-tr-lg">
+        <div className="bg-blue-600 text-white px-4 py-2 font-bold text-center ">
           {username === "Julian" && activeRoom.room === "julian" && activeRoom.user ? `Julian & ${activeRoom.user}` :
             username !== "Julian" && activeRoom.room === "julian" ? `Julian` :
             "Général"} 💬
