@@ -89,7 +89,7 @@ export default function CalculatriceRetro() {
         <div className="mx-auto max-w-full">
             {/* Corps principal avec effet métallique */}
             <div
-                className="pt-0 bg-gradient-to-b from-gray-300 via-gray-400 to-gray-500 p-4 shadow-2xl  border-gray-300"
+                className="pt-[15px] bg-gradient-to-b from-gray-300 via-gray-400 to-gray-500 p-4 shadow-2xl  border-gray-300"
                 style={{
                     boxShadow:
                         "inset 0 2px 4px rgba(255,255,255,0.3), inset 0 -2px 4px rgba(0,0,0,0.3), 0 8px 32px rgba(0,0,0,0.3)",
