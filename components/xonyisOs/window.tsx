@@ -218,32 +218,86 @@ export function MacWindow({
     return (
         <div
             ref={windowRef}
-            className={`absolute bg-white border-2 border-gray-400 shadow-lg select-none font-pixelify ${isActive ? "z-50" : "z-40"}`}
+            // className={`absolute bg-red-300 border-2 border-gray-400 shadow-lg select-none font-pixelify ${isActive ? "z-50" : "z-40"}`}
+            className={`bg-gray-300 absolute border-2 border-gray-800 select-none w-full font-pixelify${isActive ? "z-50" : "z-40"}`}
+            
             style={{
                 left: position.x,
                 top: position.y,
                 width: size.width,
                 height: size.height,
                 cursor: isDragging ? "grabbing" : "default",
+                borderTopColor: "#ffffff",
+                borderLeftColor: "#ffffff",
+                borderRightColor: "#808080",
+                borderBottomColor: "#808080",
             }}
             onClick={onFocus}
         >
             {/* Title Bar */}
             <div
-                className={`flex items-center justify-between h-6 px-1 border-b border-gray-300 ${
+                className={`border-b-2 flex items-center justify-between h-6 px-1 border-b border-gray-300 h-[27px]  ${
                     isActive ? "bg-gradient-to-b from-gray-200 to-gray-300" : "bg-gradient-to-b from-gray-200 to-gray-300"
                 }`}
+                
                 onMouseDown={handleMouseDown}
-                style={{ cursor: isDragging ? "grabbing" : "grab" }}
+                style={{ cursor: isDragging ? "grabbing" : "grab",
+                    borderBottomColor: "#808080",
+                 }}
             >
+
+                {/* Points horizontaux en arrière-plan - évitent le titre et les icônes */}
+          <div className="absolute inset-0 pointer-events-none ">
+            {/* Lignes de points dynamiques */}
+            {/* Calcule dynamiquement le nombre de points par ligne */}
+            {/* On soustrait le padding horizontal (px-2 = 16px) de la largeur totale */}
+            {/* On divise ensuite la largeur utilisable par une valeur approximative de l'espace par point */}
+            {/* Assure un minimum de 10 points */}
+            {/* Utilise une valeur de 8px par point (environ taille point + gap) */}
+            
+
+            {/* Première ligne de points */}
+            <div className=" inset-0 absolute top-[4px] left-0 right-0 grid gap-1 px-2"
+              style={{ gridTemplateColumns: `repeat(${Math.max(10, Math.floor((size.width - 16) / 8))}, 1fr)` }}
+            >
+              {[...Array(Math.max(10, Math.floor((size.width - 16) / 8)))].map((_, i) => (
+                <div key={i} className="w-0.5 h-0.5 bg-black  rounded-full"></div>
+              ))}
+            </div>
+
+            {/* Deuxième ligne de points */}
+            <div className="inset-0 absolute top-[11px] left-0 right-0 grid gap-1 px-2"
+              style={{ gridTemplateColumns: `repeat(${Math.max(10, Math.floor((size.width - 16) / 8))}, 1fr)` }}
+            >
+              {[...Array(Math.max(10, Math.floor((size.width - 16) / 8)))].map((_, i) => (
+                <div key={i} className="w-0.5 h-0.5 bg-black  rounded-full"></div>
+              ))}
+            </div>
+
+            {/* Troisième ligne de points */}
+            <div className="inset-0 absolute top-[18px] left-0 right-0 grid gap-1 px-2"
+              style={{ gridTemplateColumns: `repeat(${Math.max(10, Math.floor((size.width - 16) / 8))}, 1fr)` }}
+            >
+              {[...Array(Math.max(10, Math.floor((size.width - 16) / 8)))].map((_, i) => (
+                <div key={i} className="w-0.5 h-0.5 bg-black rounded-full"></div>
+              ))}
+            </div>
+          </div>
+
                 {/* Window Controls */}
-                <div className="flex items-center space-x-1">
+                <div className="flex h-full bg-gradient-to-b from-gray-200 to-gray-300 relative items-center space-x-1">
                     <button
                         onClick={(e) => {
                             e.stopPropagation()
                             if (onClose) onClose()
                         }}
-                        className="w-5 h-5 flex items-center justify-center  "
+                        style={{
+                            borderTopColor: "#ffffff",
+                            borderLeftColor: "#ffffff",
+                            borderRightColor: "#808080",
+                            borderBottomColor: "#808080",
+                          }}
+                        className="w-5 h-5 mr-1 mb-[1px] border border-gray-400 hover:bg-gray-300 active:bg-gray-400 flex items-center justify-center  "
                     >
                         <X className="w-5 h-5 text-red-600 " />
                     </button>
@@ -251,19 +305,28 @@ export function MacWindow({
                 </div>
 
                 {/* Title */}
-                <div className={`text-s font-medium text-gray-700`}>{title}</div>
+                <div className={`bg-gradient-to-b from-gray-200 to-gray-300 relative h-full px-7 space-x-1 text-s font-medium text-gray-700`}>{title}</div>
 
                 {/* Empty space for balance */}
                 <div className="w-12"></div>
             </div>
 
             {/* Window Content */}
+            <div className="p-2">
             <div
                 ref={contentRef}
-                className={` bg-white ${scrollable ? "overflow-auto" : "overflow-hidden"}`}
-                style={{height: size.height - 24}}
+                className={` bg-gray-300 ${scrollable ? "overflow-auto" : "overflow-hidden"} border-2 border-gray-400`}
+                style={{height: size.height - 45,
+                    borderTopColor: "#808080",
+            borderLeftColor: "#808080",
+            borderRightColor: "#ffffff",
+            borderBottomColor: "#ffffff",
+                }
+            }
             >
                 {children}
+                
+            </div>
             </div>
             {/* Resize Handles - only shown if resizable */}
             {resizable && (

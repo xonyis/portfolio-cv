@@ -150,11 +150,12 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
             resizable: true,
             scrollable: true,
             content: (
-                <div className="h-full flex flex-col ">
+                <div className="bg-white w-full h-full">
+                <div className="h-full flex flex-col bg-white">
                     <span className="text-lg font-medium text-black font-pixelify text-center mb-3">
                         {formatTime(time)}
                     </span>
-                    <div className=" flex justify-center ">
+                    <div className=" flex justify-center bg-white ">
                         <div>
                             <Image
                                 src="/memojii-sticker.png"
@@ -170,7 +171,7 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                         </div>
                     </div>
                     {/* Informations de profil */}
-                    <div className="flex-1 mx-auto px-4 space-y-4">
+                    <div className="flex-1 mx-auto px-4 space-y-4 bg-white">
                         <div className="flex items-center space-x-3">
                             <div className="w-6 h-6 bg-blue-500 rounded flex items-center justify-center">
                                 <span className="text-white text-xs">@</span>
@@ -221,7 +222,7 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                     </div>
 
                     {/* Bouton de déconnexion */}
-                    <div className="p-2 flex text-center mt-3 w-48 mx-auto">
+                    <div className="p-2 flex text-center mt-3 w-48 mx-auto ">
                         <Link href="/"
                             
                             className="mx-auto text-red-500 hover:text-red-600 text-white rounded-lg transition-colors duration-200 text-sm font-medium"
@@ -247,6 +248,7 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                             />
                         </button>
                     </div>
+                </div>
                 </div>
             ),
         }
