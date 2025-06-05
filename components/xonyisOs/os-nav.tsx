@@ -100,9 +100,9 @@ export default function OsNavbar({ onOpenApp }: OsNavbarProps) {
     }
 
     return (
-        <div className="w-full bg-white overflow-hidden border-b border-gray-300 shadow-sm text-md font-pixelify">
+        <div className="w-full fixed bg-white overflow-hidden border-b border-gray-300 shadow-sm text-md font-pixelify">
             {/* Menu Bar */}
-            <div className="flex items-center h-10 px-2 py-3 bg-gradient-to-b from-gray-100 to-gray-200 border-b border-gray-400">
+            <div className="flex items-center h-8 px-2 py-3 bg-gradient-to-b from-gray-100 to-gray-200 border-b border-gray-400">
                 {/* Apple Logo */}
                 <div className="flex items-center mr-4">
                     <button

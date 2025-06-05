@@ -223,7 +223,7 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
     return (
         <div
             id="desktop"
-            className="relative w-full h-screen overflow-hidden"
+            className="fixed mt-[35px] w-full h-screen overflow-hidden"
             style={{
                 height: "calc(100vh - 28px)",
             }}
@@ -342,7 +342,7 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                 <MacWindow
                     key={window.id}
                     title={window.title}
-                    initialPosition={window.position}
+                    initialPosition={ {x: 100, y: 50 }}
                     onClose={() => closeWindow(window.id)}
                     isActive={activeWindow === window.id}
                     onFocus={() => focusWindow(window.id)}

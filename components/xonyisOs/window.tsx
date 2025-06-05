@@ -34,7 +34,7 @@ type ResizeDirection =
 export function MacWindow({
                               title,
                               children,
-                              initialPosition = { x: 100, y: 100 },
+                              initialPosition = { x: 100, y: 10 },
                               onClose,
                               isActive = false,
                               onFocus,
