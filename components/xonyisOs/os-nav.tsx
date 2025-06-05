@@ -77,8 +77,15 @@ export default function OsNavbar({ onOpenApp }: OsNavbarProps) {
         return date.toLocaleTimeString("fr-FR", {
             hour: "2-digit",
             minute: "2-digit",
-            second: "2-digit",
             hour12: false,
+        })
+    }
+
+    const formatDate = (date: Date) => {
+        return date.toLocaleDateString("fr-FR", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric"
         })
     }
     const handleMenuClick = (item: any) => {
@@ -95,7 +102,7 @@ export default function OsNavbar({ onOpenApp }: OsNavbarProps) {
     return (
         <div className="w-full bg-white overflow-hidden border-b border-gray-300 shadow-sm text-md font-pixelify">
             {/* Menu Bar */}
-            <div className="flex items-center h-7 px-2 py-3 bg-gradient-to-b from-gray-100 to-gray-200 border-b border-gray-400">
+            <div className="flex items-center h-10 px-2 py-3 bg-gradient-to-b from-gray-100 to-gray-200 border-b border-gray-400">
                 {/* Apple Logo */}
                 <div className="flex items-center mr-4">
                     <button
@@ -150,9 +157,10 @@ export default function OsNavbar({ onOpenApp }: OsNavbarProps) {
 
                 {/* Right side - Clock */}
                 <div className="ml-auto">
-          <span className="text-lg font-medium text-black font-pixelify">
-            {formatTime(time)}
-          </span>
+          <div className="flex flex-col items-center text-sm/[15px] font-medium text-black font-pixelify">
+            <span className="text-xs/0.5 ">{formatTime(time)}</span>
+            <span className="">{formatDate(time)} </span>
+          </div>
                 </div>
             </div>
         </div>
