@@ -10,6 +10,7 @@ import Paint from "@/components/xonyisOs/paint"
 import SnakeGamePage from "@/components/xonyisOs/snake";
 import Chatiooo from "@/components/xonyisOs/Chattioo";
 import  Infos from "@/components/xonyisOs/Infos";
+import ControlPanelApp from "@/components/xonyisOs/ControlPanelApp";
 
 interface WindowData {
     id: string
@@ -33,6 +34,7 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
     const [windows, setWindows] = React.useState<WindowData[]>([])
     const [activeWindow, setActiveWindow] = React.useState<string>("")
     const [time, setTime] = useState(new Date())
+    const [background, setBackground] = useState("");
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -152,7 +154,17 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
             content: (
                 <Infos/>
             ),
-        }
+        },
+        controlpanel: {
+            title: "Paramètres",
+            width: 420,
+            height: 520,
+            resizable: false,
+            scrollable: true,
+            content: (
+                <ControlPanelApp background={background} setBackground={setBackground} />
+            ),
+        },
     }
 
     // Écouter le trigger d'ouverture d'app
@@ -190,8 +202,12 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
             content: app.content,
             resizable: app.resizable !== false,
             scrollable: app.scrollable === true, // Par défaut false sauf si explicitement true
-            minWidth: app.minWidth,
-            minHeight: app.minHeight,
+        };
+        if ('minWidth' in app && typeof app.minWidth === 'number') {
+            newWindow.minWidth = app.minWidth;
+        }
+        if ('minHeight' in app && typeof app.minHeight === 'number') {
+            newWindow.minHeight = app.minHeight;
         }
 
         setWindows([...windows, newWindow])
@@ -223,9 +239,14 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
     return (
         <div
             id="desktop"
-            className="fixed mt-[35px] w-full h-screen overflow-hidden"
+            className="fixed mt-[32px] w-full h-screen overflow-hidden"
             style={{
                 height: "calc(100vh - 28px)",
+                backgroundImage: `url(${background})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                transition: "background-image 0.3s"
             }}
         >
             {/* Desktop Icons */}
@@ -234,8 +255,8 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                 style={{
                     display: "grid",
                     gridAutoFlow: "column",
-                    gridTemplateRows: "repeat(auto-fit, minmax(90px, 80px))", // Hauteur min 80px, s'adapte
-                    gridAutoRows: "minmax(80px, 1fr)", // Hauteur min 80px
+                    gridTemplateRows: "repeat(auto-fit, minmax(90px, 80px))",
+                    gridAutoRows: "minmax(80px, 1fr)",
                     height: "calc(100vh - 40px)",
                     maxHeight: "calc(100vh - 100px)",
                     overflowY: "auto",
@@ -254,6 +275,19 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
                         className=" object-contain"
                     />
                     <span className="text-xs text-white w-full">Infos Système</span>
+                </div>
+                <div
+                    className="flex flex-col justify-center items-center cursor-pointer hover:bg-white/20 p-2 rounded"
+                    onDoubleClick={() => openWindow("controlpanel")}
+                >
+                    <Image
+                        src="/ControlPanelIcon.png"
+                        alt=""
+                        width={48}
+                        height={48}
+                        className="object-contain"
+                    />
+                    <span className="text-xs text-white">Control Panel</span>
                 </div>
                 <div
                     className="flex flex-col justify-center items-center cursor-pointer hover:bg-white/20 p-2 rounded"

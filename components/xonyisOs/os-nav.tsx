@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Apple, Palette, Edit, Calculator, Worm, Folder, MessageCircle   } from "lucide-react"
+import { Apple, Palette, Edit, Calculator, Worm, Folder, MessageCircle, Puzzle } from "lucide-react"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -40,7 +40,7 @@ const menuItems = [
             { label: "Calculatrice", action: "calculator", icon: <Calculator className="w-4 h-4 mr-2" /> },
             { label: "Snake", action: "snake", icon: <Worm  className="w-4 h-4 mr-2" /> },
             { label: "Chatioo", action: "chatioo", icon: <MessageCircle   className="w-4 h-4 mr-2" /> },
-
+            { label: "Puzzle", action: "slidingPuzzle", icon: <Puzzle className="w-4 h-4 mr-2" /> },
             "-",
             { label: "Finder", action: "finder", icon: <Folder  className="w-4 h-4 mr-2" /> },
         ],

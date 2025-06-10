@@ -237,7 +237,7 @@ export function MacWindow({
             {/* Title Bar */}
             <div
                 className={`border-b-2 flex items-center justify-between h-6 px-1 border-b border-gray-300 h-[27px]  ${
-                    isActive ? "bg-gradient-to-b from-gray-200 to-gray-300" : "bg-gradient-to-b from-gray-200 to-gray-300"
+                    isActive ? "bg-gradient-to-b from-gray-100 to-gray-300" : "bg-gradient-to-b from-gray-100 to-gray-300"
                 }`}
                 
                 onMouseDown={handleMouseDown}
@@ -285,7 +285,7 @@ export function MacWindow({
           </div>
 
                 {/* Window Controls */}
-                <div className="flex h-full bg-gradient-to-b from-gray-200 to-gray-300 relative items-center space-x-1">
+                <div className="flex h-full bg-gradient-to-b from-gray-100 to-gray-300 relative items-center space-x-1">
                     <button
                         onClick={(e) => {
                             e.stopPropagation()
@@ -305,7 +305,7 @@ export function MacWindow({
                 </div>
 
                 {/* Title */}
-                <div className={`bg-gradient-to-b from-gray-200 to-gray-300 relative h-full px-7 space-x-1 text-s font-medium text-gray-700`}>{title}</div>
+                <div className={`bg-gradient-to-b from-gray-100 to-gray-300 relative h-full px-7 space-x-1 text-s font-medium text-gray-700 font-pixelify`}>{title}</div>
 
                 {/* Empty space for balance */}
                 <div className="w-12"></div>
