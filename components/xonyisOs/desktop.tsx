@@ -135,8 +135,8 @@ export function Desktop({ openAppTrigger }: DesktopProps) {
         },
         chatioo: {
             title: "Chatioo",
-            width: 500,
-            minWidth: 500,
+            width: 520,
+            minWidth: 520,
             height: 470,
             minHeight: 350,
             resizable: true,

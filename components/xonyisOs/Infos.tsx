@@ -50,7 +50,10 @@ export default function SnakeGamePage() {
                             </div>
                             <div>
                                 <p className="text-xs text-neutral-500">GitHub</p>
-                                <p className="text-sm text-black">github.com/xonyis</p>
+                                <Link  target="_blank" href="https://github.com/xonyis" className="">
+                            <p className="text-sm text-black">github.com/xonyis</p>
+                        </Link>
+
                             </div>
                         </div>
 
@@ -60,7 +63,9 @@ export default function SnakeGamePage() {
                             </div>
                             <div>
                                 <p className="text-xs text-neutral-500">LinkedIn</p>
-                                <p className="text-sm text-black">linkedin.com/in/julian-mayer</p>
+                                <Link target="_blank" href="https://www.linkedin.com/in/julian-mayer-6519a0229/" className="">
+                                    <p className="text-sm text-black">linkedin.com/in/julian-mayer</p>
+                                </Link>
                             </div>
                         </div>
                     </div>

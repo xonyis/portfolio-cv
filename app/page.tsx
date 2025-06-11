@@ -151,7 +151,7 @@ export default function Portfolio() {
                       className="rounded-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 transition-all duration-300"
                       asChild
                   >
-                    <Link href="#projects">Voir mes projets</Link>
+                    <Link href="#projects" className="text-white">Voir mes projets</Link>
                   </Button>
                 </div>
                 <div className="flex  justify-center   mt-4  ">

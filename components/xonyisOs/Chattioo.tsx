@@ -19,6 +19,14 @@ export default function Chattioo() {
   const [generalMessages, setGeneralMessages] = useState<Message[]>([])
   const socketRef = useRef<Socket | null>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const [noUsername, setNoUsername] = useState(false);
+
+  useEffect(() => {
+    // Vérifie si le username est absent du localStorage
+    const username = localStorage.getItem("username");
+    
+    setNoUsername(!username || username === "Anonyme");
+  }, []);
 
   // Récupère ou demande le pseudo
   useEffect(() => {
@@ -29,6 +37,20 @@ export default function Chattioo() {
     }
     setUsername(stored)
   }, [])
+
+  const setUsernameBtn = () => {
+    let stored = prompt("Choisis un pseudo !") || "Anonyme"
+      localStorage.setItem("username", stored)
+      setUsername(stored)
+      setNoUsername(false)
+  }
+
+  const resetUsernameBtn = () => {
+    let stored = "Anonyme"
+      localStorage.setItem("username", stored)
+      setUsername(stored)
+      setNoUsername(true)
+  }
 
   // Connexion socket
   useEffect(() => {
@@ -121,7 +143,7 @@ export default function Chattioo() {
   }
 
   return (
-    <div className="flex h-full bg-gray-100 s shadow-lg border border-gray-300 w-full mx-auto">
+    <div className="flex h-full bg-gray-100 s shadow-lg border border-gray-300 w-full mx-auto font-pixelify">
       {/* Sidebar */}
       <div className="w-40 bg-gray-200 border-r border-gray-300 flex flex-col">
         <div className="font-bold text-center py-2 bg-blue-600 text-white ">Conversations</div>
@@ -138,6 +160,29 @@ export default function Chattioo() {
               {item.name}
             </button>
           ))}
+        </div>
+        <div className="p-1 mb-2">
+          {!noUsername && (
+            <div className="w-full">
+              <div className="w-full mx-auto text-black text-center">{localStorage.getItem("username")} </div>
+              <button
+            onClick={resetUsernameBtn}
+            className="text-center w-full  text-[14px] text-red-600 px-3 py-1.5 rounded-lg  transition"
+          >
+            Déconnexion
+          </button>
+            </div>
+          ) }
+          
+        {noUsername && (
+          <button
+          onClick={setUsernameBtn}
+          className="text-center w-full mb-2 text-[11px] text-black rounded-lg  transition"
+        >
+          Choisir un nom d'utilisateur
+        </button>
+        )}
+          
         </div>
       </div>
       {/* Chat */}
