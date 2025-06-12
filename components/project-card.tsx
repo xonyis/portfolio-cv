@@ -14,10 +14,11 @@ type ProjectCardProps = {
   description: string
   tags: string[]
   image: string
+  badgeColors?: string[]
   delay?: number
 }
 
-export function ProjectCard({ title, description, tags, image, delay = 0 }: ProjectCardProps) {
+export function ProjectCard({ title, description, tags, image, badgeColors, delay = 0 }: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false)
 
   return (
@@ -67,7 +68,7 @@ export function ProjectCard({ title, description, tags, image, delay = 0 }: Proj
 
           <div className="flex flex-wrap gap-2">
             {tags.map((tag, index) => (
-              <Badge key={index} variant="outline" className="bg-gray-800/50 text-gray-300 border-gray-700 text-xs">
+              <Badge key={index} variant="outline" className={ badgeColors?.[index] || "bg-gray-800/50 text-gray-300 border-gray-700 text-xs"}>
                 {tag}
               </Badge>
             ))}

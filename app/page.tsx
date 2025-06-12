@@ -275,7 +275,7 @@ export default function Portfolio() {
 
             <div className="max-w-6xl mx-auto relative">
               {/* Timeline line */}
-              <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-purple-500 to-blue-500 transform md:translate-x-[-0.5px]" />
+              <div className="hidden md:block absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-purple-500 to-blue-500 transform md:translate-x-[-0.5px]" />
 
               {/* Experience Items */}
               <div className="space-y-12 ">
@@ -327,7 +327,7 @@ export default function Portfolio() {
 
             <div className="max-w-6xl mx-auto relative">
               {/* Timeline line */}
-              <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-purple-500 to-blue-500 transform md:translate-x-[-0.5px]" />
+              <div className="hidden md:block absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-purple-500 to-blue-500 transform md:translate-x-[-0.5px]" />
 
               {/* Experience Items */}
               <div className="space-y-12 ">
@@ -372,11 +372,11 @@ export default function Portfolio() {
                     description="J'ai développé un site vitrine pour un artisan plombier, conçu avec les technologies HTML, CSS et JavaScript, en m’appuyant sur le framework Bootstrap pour assurer une mise en page responsive et rapide à déployer. Ce site présente les différents services proposés (dépannages, installations, entretiens), ainsi que les informations de contact et un formulaire de demande d’intervention."
                     align="right"
                     delay={0.3}
-                    badges={["Vue.js", "JavaScript", "Node.js", "UI/UX", "BootStrap"]}
+                    badges={["HTML", "CSS", "JavaScript", "UI/UX", "BootStrap"]}
                     badgeColors={[
-                      "bg-green-950/30 text-green-300 border-green-800/50",
-                      "bg-yellow-950/30 text-yellow-300 border-yellow-500/50",
+                      "bg-rose-950/30 text-rose-300 border-rose-500/50",
                       "bg-teal-950/30 text-teal-300 border-teal-800/50",
+                      "bg-yellow-950/30 text-yellow-300 border-yellow-500/50",
                       "bg-fuchsia-950/30 text-fuchsia-300 border-fuchsia-800/50",
                       "bg-violet-950/30 text-violet-300 border-violet-800/50",
                     ]}
@@ -498,14 +498,29 @@ export default function Portfolio() {
                   >
                     <Link href="/xonyisOs" className="text-white font-pixelify">📺 XonyisOs</Link>
                   </Button>}
-                  tags={["Next.Js", "Node.js", "Tailwind"]}
+                  tags={["Next.Js", "TypeScript", "Node.js", "Socket.io", "Tailwind", ]}
                   image="/XonyisOsImg.png"
+                  badgeColors={[
+                    "bg-blue-950/30 text-blue-300 border-blue-800/50",
+                    "bg-indigo-950/30 text-indigo-300 border-indigo-800/50",
+                    "bg-teal-800/50 text-teal-300 border-teal-700",
+                    "bg-gray-800/50 text-gray-300 border-gray-700",
+                    "bg-cyan-950/30 text-cyan-300 border-cyan-800/50",
+                  ]}
                   delay={0.1}
               />
               <ProjectCard
                   title="Classio"
                   description="Application permettant aux élèves, parents et professeurs de rester connectés. Elle regroupe tous les éléments clés du parcours scolaire : planning des cours, résultats, assignments, suivi des présences, communication et progression pédagogique."
-                  tags={["Next.Js", "Node.js", "Postgresql", "Prisma", "Tailwind"]}
+                  tags={["Next.Js", "TypeScript", "Node.js", "Postgresql", "Prisma", "Tailwind"]}
+                  badgeColors={[
+                    "bg-blue-950/30 text-blue-300 border-blue-800/50",
+                    "bg-indigo-950/30 text-indigo-300 border-indigo-800/50",
+                    "bg-teal-800/50 text-teal-300 border-teal-700",
+                    "bg-sky-800/50 text-gray-300 border-sky-700",
+                    "bg-pink-800/50 text-pink-300 border-pink-700",
+                    "bg-cyan-950/30 text-cyan-300 border-cyan-800/50",
+                  ]}
                   image="/ClassioCapture.png"
                   delay={0.1}
               />
@@ -513,40 +528,72 @@ export default function Portfolio() {
               <ProjectCard
                   title="Triman"
                   description="Un jeu de dés multijoueur en temps réel où plusieurs participants peuvent s'affronter simultanément, chacun lançant ses dés à tour de rôle"
-                  tags={["Next.js", "TypeScript", "Socket.io", "Tailwind"]}
+                  tags={["Next.js", "TypeScript", "Node.js","Socket.io", "Tailwind"]}
                   image="/TrimanCapture.png"
+                  badgeColors={[
+                    "bg-blue-950/30 text-blue-300 border-blue-800/50",
+                    "bg-indigo-950/30 text-indigo-300 border-indigo-800/50",
+                    "bg-teal-800/50 text-teal-300 border-teal-700",
+                    "bg-gray-800/50 text-gray-300 border-gray-700",
+                    "bg-cyan-950/30 text-cyan-300 border-cyan-800/50",
+                  ]}
                   delay={0.2}
               />
 
               <ProjectCard
                   title="Application Interne Cora Informatique"
                   description="Refonte d’une application interne permettant l’analyse automatisée de flux fournisseurs et la génération de KPI diffusés via Odrive."
-                  tags={["Vue.js", "SpringBoot"]}
+                  tags={["Vue.js", "SpringBoot", "Bootstrap", "Axios","JWT", ]}
                   image="/CoraInformatique.jpeg"
+                  badgeColors={[
+                    "bg-green-950/30 text-green-300 border-green-800/50",
+                    "bg-emerald-950/30 text-emerald-300 border-emerald-800/50",
+                    "bg-violet-950/30 text-violet-300 border-violet-800/50",
+                    "bg-fuchsia-950/30 text-fuchsia-300 border-fuchsia-800/50",
+                    "bg-red-950/30 text-red-300 border-red-500/50",
+                  ]}
                   delay={0.3}
               />
 
               <ProjectCard
                   title="Plateforme Éducative MNS QUIZZ"
                   description="Projet de fin de troisième années du Bachelor Développeur Full Stack."
-                  tags={["Vue.js", "SpringBoot", "Express", "SpringBoot", "JWT"]}
+                  tags={["Vue.js", "SpringBoot", "Express", "JWT"]}
                   image="/project4.png"
+                  badgeColors={[
+                    "bg-green-950/30 text-green-300 border-green-800/50",
+                    "bg-emerald-950/30 text-emerald-300 border-emerald-800/50",
+                    "bg-blue-950/30 text-blue-300 border-blue-800/50",
+                    "bg-red-950/30 text-red-300 border-red-500/50",
+                  ]}
                   delay={0.4}
               />
 
               <ProjectCard
                   title="Witch-Ink-Tatoo.fr"
                   description="Site vitrine pour un salon de tatouage avec des animations et une galerie d'images relié au compte Instagram du salon."
-                  tags={["Vue.js", "Tailwind", "GSAP", "Node.Js"]}
+                  tags={["Vue.js", "TypeScript", "Tailwind", "GSAP",]}
                   image="/witchInk.jpeg"
+                  badgeColors={[
+                    "bg-green-950/30 text-green-300 border-green-800/50",
+                    "bg-blue-950/30 text-blue-300 border-blue-800/50",
+                    "bg-cyan-950/30 text-cyan-300 border-cyan-800/50",
+                    "bg-red-950/30 text-red-300 border-red-500/50",
+                  ]}
                   delay={0.5}
               />
 
               <ProjectCard
                   title="CEGUIPRO.fr"
                   description="Site vitrine pour un plombier avec un formulaire de prise de rendez-vous selon les disponibilités de l'artisan."
-                  tags={["HTML", "Bootstrap", "JavaScript", "Node.js"]}
+                  tags={["HTML", "CSS", "Bootstrap", "JavaScript"]}
                   image="/project6.png"
+                  badgeColors={[
+                    "bg-rose-950/30 text-rose-300 border-rose-500/50",
+                    "bg-teal-950/30 text-teal-300 border-teal-800/50",
+                    "bg-violet-950/30 text-violet-300 border-violet-800/50",
+                    "bg-yellow-950/30 text-yellow-300 border-yellow-500/50",
+                  ]}
                   delay={0.6}
               />
             </div>
@@ -651,7 +698,7 @@ function TimelineItem({
           className={cn("relative flex flex-col md:flex-row items-center", align === "right" ? "md:flex-row-reverse" : "")}
       >
         {/* Timeline dot */}
-        <div className="absolute left-0 md:left-1/2 w-5 h-5 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 transform md:translate-x-[-50%] z-10" />
+        <div className="hidden md:block absolute left-0 md:left-1/2 w-5 h-5 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 transform md:translate-x-[-50%] z-10" />
 
         {/* Content */}
         <div className={cn("w-full md:w-[calc(40%-20px)]", align === "left" ? "md:pr-2" : "md:pl-2")}>
